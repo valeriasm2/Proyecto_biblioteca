@@ -24,3 +24,49 @@ dic_users = {'1233423S':{'nombre':'Juan Perez', 'edad':24, 'tfn':456454847, 'mai
              '98765432Z':{'nombre':'Ana Martínez', 'edad':30, 'tfn':987654321, 'mail':'anamartinez@gmail.com',
                          'prestamos':['ISB1329', 'ISB7561', 'ISB8475'], 'leidos':['ISB2754','ISB3985','ISB8301']}
              }
+
+
+#MENÚ PRINCIPAL
+flg00 = True
+menu00 = " Menú princilal ".center(40,"=") + "\n" + "1) Gestión de Libros" + "\n" + \
+         "2) Gestión de Usuarios" + "\n" "3) Gestión de Géneros" + "\n"
+
+#MENÚS DICCIONARIO LIBROS
+flg01 = False
+menu01 = " Gestión de Libros ".center(40,"=") + "\n" + "1) Listar todos los libros" + "\n" + \
+         "2) Buscar libro" + "\n" + "3) Editar libro"
+flg012 = False
+menu012 = " Buscar sibro ".center(40,"=") + "\n" + "1) Por título" + "\n" + "2)Por autor" + \
+          "\n" + "3)Por género" + "\n"
+flg013 = False
+menu013 = " Editar libro ".center(40,"=") + "\n" + "1) Añadir nuevo libro" + "\n" + "2) Editar libro existente" + \
+          "\n" + "3) Eliminar libro" + "\n"
+flg0132 = False
+menu0132 = " Editar libro existente ".center(40,"=") + "\n" + "1) Editar título" + "\n" + "2) Editar género"
+
+#MENÚS GÉNEROS
+flg02 = False
+menu02 = " Gestión de usuarios ".center(40,"=") + "\n" + "1) Listar usuarios" + "\n" + "2) Buscar usuarios" + \
+         "\n" + "3) Editar usuarios"
+flg021 = False
+menu021 = " Listar usuarios ".center(40,"=") + "\n" + "1) Por DNI" + "\n" + "2) Por nombre" + "\n" + \
+          "3) Por cantidad de libros prestados" + "\n" + "4) Por cantidad de libros leidos" + "\n"
+flg022 = False
+menu022 = " Buscar usuarios ".center(40,"=") + "\n" + "1) Por nombre" + "\n" + "2) Por edad" + "\n"
+flg023 = False
+menu023 = " Editar usuarios ".center(40,"=") + "\n" + "1) Añadir usuario nuevo" + "\n" + "2) Modificar usuario existente" + \
+          "\n" + "3) Eliminar usuario" + "\n"
+flg0232 = False
+menu0232 = " Modificar usuario existente ".center(40,"=") + "\n" + "1) Editar datos personales" + "\n" + "2) Editar préstamos" + \
+           "\n" + "3) Añadir libro leídos" + "\n"
+flg02321 = False
+menu02321 = " Editar datos personales " + "\n" + "1) Teléfono" + "\n" + "2) Email" + "\n"
+flg02322 = False
+menu02322 = " Editar préstamos " + "\n" + "1) Añadir libro prestado" + "\n" + "2) Eliminar libro prestado" + "\n"
+
+#MENÚS USERS
+flg03 = False
+menu03 = " Gestión de géneros ".center(40,"=") + "\n" + "1) Listar todos los géneros" + "\n" + "2) Añadir nuevo género" + \
+         "\n" + "3) Editar género" + "\n" + "4) Eliminar género" + "\n"
+
+
