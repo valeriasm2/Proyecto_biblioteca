@@ -283,15 +283,46 @@ while flg00:
                             libros_prestados += 1
                         for leidos in valor["leidos"]:
                             libros_leidos += 1
-                        dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(10) + str(
-                            valor["tfn"]).ljust(15) + \
-                                valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(libros_leidos).rjust(
-                            15) + "\n"
+                        dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(10) + str(valor["tfn"]).ljust(15) + \
+                                valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(libros_leidos).rjust(15) + "\n"
                         libros_leidos = 0
                         libros_prestados = 0
                     print(dato)
                 elif opc == 3:
-                    print("Listar usuarios por cantidad de libros prestados")
+                    print("=" * 123 + "\n" + "Listar usuarios por cantidad de libros prestados".center(123))
+                    libros_prestados_ordenados = []
+                    libros_prestados = 0
+                    libros_leidos = 0
+                    dato = ""
+                    print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
+                          "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
+                          "Libros leídos".rjust(15) + "\n" + "=" * 123)
+                    for clave, valor in dic_users.items():
+                        if len(libros_prestados_ordenados) == 0:
+                            libros_prestados_ordenados.append((clave,valor))
+                        else:
+                            insert_libro_prestado = False
+                            for n in range (len(libros_prestados_ordenados)):
+                                tupla = libros_prestados_ordenados[n]
+                                clave1 = tupla[0]
+                                valor1 = tupla[1]
+                                if valor["prestamos"] < valor1["prestamos"]:
+                                    libros_prestados_ordenados.insert(n,(clave,valor))
+                                    insert_libro_prestado = True
+                                    break
+                            if not insert_libro_prestado:
+                                libros_prestados_ordenados.append((clave,valor))
+
+                    for clave, valor in libros_prestados_ordenados:
+                        for prestamos in valor["prestamos"]:
+                            libros_prestados += 1
+                        for leidos in valor["leidos"]:
+                            libros_leidos += 1
+                        dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(10) + str(valor["tfn"]).ljust(15) + \
+                                valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(libros_leidos).rjust(15) + "\n"
+                        libros_leidos = 0
+                        libros_prestados = 0
+                    print(dato)
                 elif opc == 4:
                     print("Listar usuarios por cantidad de libros leídos")
                 elif opc == 5:
