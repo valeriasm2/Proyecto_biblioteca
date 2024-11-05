@@ -217,7 +217,42 @@ while flg00:
             else:
                 opc = int(opc)
                 if opc == 1:
-                    print("Listar usuarios por DNI")
+                    print("=" * 123 + "\n" + "Listar usuarios por DNI".center(123))
+                    dato = ""
+                    libros_leidos = 0
+                    libros_prestados = 0
+                    dni_ordenado = []
+                    print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(
+                        10) + "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(
+                        15) + "Libros leídos".rjust(15) + "\n" + "=" * 123)
+                    for clave, valor in dic_users.items():
+                        if len(dni_ordenado) == 0:
+                            dni_ordenado.append((clave, valor))
+                        else:
+                            insert_name = False
+                            for i in range(len(dni_ordenado)):
+                                tupla = dni_ordenado[i]
+                                clave1 = tupla[0]
+                                valor1 = tupla[1]
+                                if clave < clave1:
+                                    dni_ordenado.insert(i, (clave, valor))
+                                    insert_name = True
+                                    break
+                            if not insert_name:
+                                dni_ordenado.append((clave, valor))
+
+                    for clave, valor in dni_ordenado:
+                        for prestamos in valor["prestamos"]:
+                            libros_prestados += 1
+                        for leidos in valor["leidos"]:
+                            libros_leidos += 1
+                        dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(
+                            10) + str(valor["tfn"]).ljust(15) + \
+                                valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(
+                            libros_leidos).rjust(15) + "\n"
+                        libros_leidos = 0
+                        libros_prestados = 0
+                    print(dato)
                 elif opc == 2:
                     print("Listar usuarios por nombre")
                 elif opc == 3:
