@@ -306,7 +306,7 @@ while flg00:
                                 tupla = libros_prestados_ordenados[n]
                                 clave1 = tupla[0]
                                 valor1 = tupla[1]
-                                if valor["prestamos"] < valor1["prestamos"]:
+                                if len(valor["prestamos"]) > len(valor1["prestamos"]):
                                     libros_prestados_ordenados.insert(n,(clave,valor))
                                     insert_libro_prestado = True
                                     break
@@ -341,7 +341,7 @@ while flg00:
                                 tupla = libros_leidos_ordenados[n]
                                 clave1 = tupla[0]
                                 valor1 = tupla[1]
-                                if valor["leidos"] < valor1["leidos"]:
+                                if len(valor["leidos"]) > len(valor1["leidos"]):
                                     libros_leidos_ordenados.insert(n,(clave,valor))
                                     insert_libro_leido = True
                                     break
