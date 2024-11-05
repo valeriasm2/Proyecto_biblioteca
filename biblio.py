@@ -106,8 +106,15 @@ while flg00:
             print("Opción fuera de rango.")
         else:
             opc = int(opc)
+            datos =""
             if opc == 1:
-                print("Listar todos los libros")
+                cabecera = ("\n" + "Listar todos los libros".center(133,"*") + "\n" + "Clave".ljust(10) + "Título".ljust(40) + "Autor".ljust(30) + "Año".ljust(8) +
+                            "Cantidad".rjust(5) + " "*5 + "Género".ljust(10) + "Edad".ljust(10) + "\n" + "*"*133 + "\n")
+                ##########
+                for clave in dic_libros:
+                    datos += (clave.ljust(10) + dic_libros[clave]["Título"].ljust(40) + dic_libros[clave]["Autor"].ljust(30) + str(dic_libros[clave]["Año"]).ljust(8) +
+                              str(dic_libros[clave]["Cantidad"]).rjust(8) + " "*5 + str(dic_libros[clave]["Género"]).ljust(10) + dic_libros[clave]["Edad"]).ljust(10) + "\n"
+                print(cabecera + datos + "*"*133 + "\n")
             elif opc == 2:
                 print("Buscar libro")
                 flg01 = False
