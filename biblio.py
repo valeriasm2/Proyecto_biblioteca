@@ -373,9 +373,69 @@ while flg00:
             else:
                 opc = int(opc)
                 if opc == 1:
-                    print("Buscar por nombre")
+                    libros_prestados = 0
+                    libros_leidos = 0
+                    dato = ""
+                    nombre = input("Inserta el nombre: ")
+
+                    while not nombre.replace(" ","").isalpha():
+                        print("Tiene que ser un nombre alfabetico")
+                        nombre = input("Inserta el nombre: ")
+                    hay_usuario = False
+                    for clave,valor in dic_users.items():
+                        if valor["nombre"].lower().find(nombre.lower()) != -1:
+                            hay_usuario = True
+                            for prestamos in valor["prestamos"]:
+                                libros_prestados += 1
+                            for leidos in valor["leidos"]:
+                                libros_leidos += 1
+                            dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(
+                                10) + str(valor["tfn"]).ljust(15) + \
+                                    valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(
+                                libros_leidos).rjust(15) + "\n"
+                            libros_leidos = 0
+                            libros_prestados = 0
+                    if hay_usuario:
+                        print("=" * 123 + "\n" + "Buscar por nombre")
+                        print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
+                              "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
+                              "Libros leídos".rjust(15) + "\n" + "=" * 123)
+                        print(dato)
+                    if not hay_usuario:
+                        print("No se encuentran usuarios con criterio")
                 elif opc == 2:
-                    print("Buscar por edad")
+                    libros_prestados = 0
+                    libros_leidos = 0
+                    dato = ""
+                    edad = input("Inserta el edad: ")
+
+                    while not edad.isdigit():
+                        print("Tiene que ser un digito")
+                        edad = input("Inserta la edad: ")
+                    edad = int(edad)
+                    hay_usuario = False
+                    for clave, valor in dic_users.items():
+                        if valor["edad"] == edad:
+                            hay_usuario = True
+                            for prestamos in valor["prestamos"]:
+                                libros_prestados += 1
+                            for leidos in valor["leidos"]:
+                                libros_leidos += 1
+                            dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(
+                                10) + str(valor["tfn"]).ljust(15) + \
+                                    valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(
+                                libros_leidos).rjust(15) + "\n"
+                            libros_leidos = 0
+                            libros_prestados = 0
+                    if hay_usuario:
+                        print("=" * 123 + "\n" + "Buscar por edad")
+                        print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
+                              "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
+                              "Libros leídos".rjust(15) + "\n" + "=" * 123)
+                        print(dato)
+                    if not hay_usuario:
+                        print("Usuario no encontrado")
+
                 elif opc == 3:
                     flg022 = False
                     flg02 = True  # Regresar al menú de gestión de usuarios
