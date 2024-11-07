@@ -217,147 +217,81 @@ while flg00:
             else:
                 opc = int(opc)
                 if opc == 1:
-                    print("=" * 123 + "\n" + "Listar usuarios por DNI".center(123))
-                    dato = ""
-                    libros_leidos = 0
-                    libros_prestados = 0
-                    dni_ordenado = []
-                    print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(
-                        10) + "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(
-                        15) + "Libros leídos".rjust(15) + "\n" + "=" * 123)
-                    for clave, valor in dic_users.items():
-                        if len(dni_ordenado) == 0:
-                            dni_ordenado.append((clave, valor))
-                        else:
-                            insert_name = False
-                            for i in range(len(dni_ordenado)):
-                                tupla = dni_ordenado[i]
-                                clave1 = tupla[0]
-                                valor1 = tupla[1]
-                                if clave < clave1:
-                                    dni_ordenado.insert(i, (clave, valor))
-                                    insert_name = True
-                                    break
-                            if not insert_name:
-                                dni_ordenado.append((clave, valor))
+                    print("=" * 125 + "\n" + "Listar usuarios por DNI".center(125)+"\n"+"=" * 125)
+                    dnis = list(dic_users.keys())
+                    datos = ""
+                    sep = " "
+                    for pasada in range (len(dnis)-1):
+                        for i in range (len(dnis)-pasada-1):
+                            if dnis[i] > dnis[i+1]:
+                                dnis[i],dnis[i+1] = dnis[i+1],dnis[i]
+                    for dni in dnis:
+                        datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + sep + str(
+                            dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(32) + str(
+                            len(dic_users[dni]["prestamos"])).rjust(20) + str(len(dic_users[dni]["leidos"])).rjust(
+                            20) + "\n"
+                    print(datos)
+                    # dic_users = {'1233423S': {'nombre': 'Juan Perez', 'edad': 24, 'tfn': 456454847,
+                    #                           'mail': 'juanperez@gmail.com',
+                    #                           'prestamos': ['ISB4578', 'ISB9123', 'ISB6384'],
+                    #                           'leidos': ['ISB4928', 'ISB8475']},
+                    #              }
 
-                    for clave, valor in dni_ordenado:
-                        for prestamos in valor["prestamos"]:
-                            libros_prestados += 1
-                        for leidos in valor["leidos"]:
-                            libros_leidos += 1
-                        dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(
-                            10) + str(valor["tfn"]).ljust(15) + \
-                                valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(
-                            libros_leidos).rjust(15) + "\n"
-                        libros_leidos = 0
-                        libros_prestados = 0
-                    print(dato)
+
                 elif opc == 2:
-                    print("=" * 123 + "\n" + "Listar usuarios por nombre".center(123))
-                    nombre_ordenado = []
-                    libros_prestados = 0
-                    libros_leidos = 0
-                    dato = ""
-                    print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
+                    print("=" * 125 + "\n" + "Listar usuarios por nombre".center(125)+"\n"+"=" * 125)
+                    print("=" * 125 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
                           "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
-                          "Libros leídos".rjust(15) + "\n" + "=" * 123)
-                    for clave, valor in dic_users.items():
-                        if len(nombre_ordenado) == 0:
-                            nombre_ordenado.append((clave, valor))
-                        else:
-                            insert_name = False
-                            for l in range(len(nombre_ordenado)):
-                                tupla = nombre_ordenado[l]
-                                clave1 = tupla[0]
-                                valor1 = tupla[1]
-                                if valor["nombre"] < valor1["nombre"]:
-                                    nombre_ordenado.insert(l, (clave, valor))
-                                    insert_name = True
-                                    break
-                            if not insert_name:
-                                nombre_ordenado.append((clave, valor))
+                          "Libros leídos".rjust(15) + "\n" + "=" * 125)
 
-                    for clave, valor in nombre_ordenado:
-                        for prestamos in valor["prestamos"]:
-                            libros_prestados += 1
-                        for leidos in valor["leidos"]:
-                            libros_leidos += 1
-                        dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(10) + str(valor["tfn"]).ljust(15) + \
-                                valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(libros_leidos).rjust(15) + "\n"
-                        libros_leidos = 0
-                        libros_prestados = 0
-                    print(dato)
+                    datos = ""
+                    dnis = list(dic_users.keys())
+                    sep = " "
+
+                    for pasada in range(len(dnis) - 1):
+                        for i in range(len(dnis) - pasada - 1):
+                            if dic_users[dnis[i]]["nombre"] > dic_users[dnis[i + 1]]["nombre"]:
+                                dic_users[dnis[i]], dic_users[dnis[i + 1]] = dic_users[dnis[i + 1]], dic_users[dnis[i]]
+                    for dni in dnis:
+                        datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) +sep+ str(dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(32) + str(len(dic_users[dni]["prestamos"])).rjust(20) + str(len(dic_users[dni]["leidos"])).rjust(20) + "\n"
+                    print(datos)
+
                 elif opc == 3:
-                    print("=" * 123 + "\n" + "Listar usuarios por cantidad de libros prestados".center(123))
-                    libros_prestados_ordenados = []
-                    libros_prestados = 0
-                    libros_leidos = 0
-                    dato = ""
-                    print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
+                    print("=" * 125 + "\n" + "Listar usuarios por cantidad de libros prestados".center(125) + "\n" + "=" * 125)
+                    print("=" * 125 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
                           "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
-                          "Libros leídos".rjust(15) + "\n" + "=" * 123)
-                    for clave, valor in dic_users.items():
-                        if len(libros_prestados_ordenados) == 0:
-                            libros_prestados_ordenados.append((clave,valor))
-                        else:
-                            insert_libro_prestado = False
-                            for n in range (len(libros_prestados_ordenados)):
-                                tupla = libros_prestados_ordenados[n]
-                                clave1 = tupla[0]
-                                valor1 = tupla[1]
-                                if len(valor["prestamos"]) > len(valor1["prestamos"]):
-                                    libros_prestados_ordenados.insert(n,(clave,valor))
-                                    insert_libro_prestado = True
-                                    break
-                            if not insert_libro_prestado:
-                                libros_prestados_ordenados.append((clave,valor))
+                          "Libros leídos".rjust(15) + "\n" + "=" * 125)
 
-                    for clave, valor in libros_prestados_ordenados:
-                        for prestamos in valor["prestamos"]:
-                            libros_prestados += 1
-                        for leidos in valor["leidos"]:
-                            libros_leidos += 1
-                        dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(10) + str(valor["tfn"]).ljust(15) + \
-                                valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(libros_leidos).rjust(15) + "\n"
-                        libros_leidos = 0
-                        libros_prestados = 0
-                    print(dato)
+                    datos = ""
+                    sep = ""
+                    dnis = list(dic_users.keys())
+                    for pasada in range (len(dnis)-1):
+                        for i in range (len(dnis)-pasada-1):
+                            if len(dic_users[dnis[i]]["prestamos"]) > len(dic_users[dnis[i+1]]["prestamos"]):
+                                dic_users[dnis[i + 1]]["prestamos"],dic_users[dnis[i]]["prestamos"] = dic_users[dnis[i]]["prestamos"],dic_users[dnis[i + 1]]["prestamos"]
+                    for dni in dnis:
+                        datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) +sep+ str(dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(32) + str(len(dic_users[dni]["prestamos"])).rjust(20) + str(len(dic_users[dni]["leidos"])).rjust(20) + "\n"
+                    print(datos)
+
                 elif opc == 4:
                     print("=" * 123 + "\n" + "Listar usuarios por cantidad de libros leídos".center(123))
-                    libros_leidos_ordenados = []
-                    libros_leidos = 0
-                    libros_prestados = 0
-                    dato = ""
                     print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
                           "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
                           "Libros leídos".rjust(15) + "\n" + "=" * 123)
-                    for clave, valor in dic_users.items():
-                        if len(libros_leidos_ordenados) == 0:
-                            libros_leidos_ordenados.append((clave,valor))
-                        else:
-                            insert_libro_leido = False
-                            for n in range (len(libros_leidos_ordenados)):
-                                tupla = libros_leidos_ordenados[n]
-                                clave1 = tupla[0]
-                                valor1 = tupla[1]
-                                if len(valor["leidos"]) > len(valor1["leidos"]):
-                                    libros_leidos_ordenados.insert(n,(clave,valor))
-                                    insert_libro_leido = True
-                                    break
-                            if not insert_libro_leido:
-                                libros_leidos_ordenados.append((clave,valor))
 
-                    for clave, valor in libros_leidos_ordenados:
-                        for prestamos in valor["prestamos"]:
-                            libros_prestados += 1
-                        for leidos in valor["leidos"]:
-                            libros_leidos += 1
-                        dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(10) + str(valor["tfn"]).ljust(15) + \
-                                valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(libros_leidos).rjust(15) + "\n"
-                        libros_leidos = 0
-                        libros_prestados = 0
-                    print(dato)
+                    dnis = list(dic_users.keys())
+                    datos = ""
+                    sep = ""
+                    for pasada in range (len(dnis)-1):
+                        for i in range (len(dnis)-pasada-1):
+                            if len(dic_users[dnis[i]]["leidos"]) < len(dic_users[dnis[i+1]]["leidos"]):
+                                dic_users[dnis[i]]["leidos"], dic_users[dnis[i+1]]["leidos"] = dic_users[dnis[i+1]]["leidos"], dic_users[dnis[i]]["leidos"]
+                    for dni in dnis:
+                        datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + sep + str(
+                            dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(32) + str(
+                            len(dic_users[dni]["prestamos"])).rjust(20) + str(len(dic_users[dni]["leidos"])).rjust(
+                            20) + "\n"
+                    print(datos)
                 elif opc == 5:
                     flg021 = False
                     flg02 = True  # Regresar al menú de gestión de usuarios
@@ -372,38 +306,9 @@ while flg00:
                 print("Opción fuera de rango.")
             else:
                 opc = int(opc)
-                if opc == 1:
-                    libros_prestados = 0
-                    libros_leidos = 0
-                    dato = ""
-                    nombre = input("Inserta el nombre: ")
-
-                    while not nombre.replace(" ","").isalpha():
-                        print("Tiene que ser un nombre alfabetico")
-                        nombre = input("Inserta el nombre: ")
-                    hay_usuario = False
-                    for clave,valor in dic_users.items():
-                        if valor["nombre"].lower().find(nombre.lower()) != -1:
-                            hay_usuario = True
-                            for prestamos in valor["prestamos"]:
-                                libros_prestados += 1
-                            for leidos in valor["leidos"]:
-                                libros_leidos += 1
-                            dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(
-                                10) + str(valor["tfn"]).ljust(15) + \
-                                    valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(
-                                libros_leidos).rjust(15) + "\n"
-                            libros_leidos = 0
-                            libros_prestados = 0
-                    if hay_usuario:
-                        print("=" * 123 + "\n" + "Buscar por nombre")
-                        print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
-                              "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
-                              "Libros leídos".rjust(15) + "\n" + "=" * 123)
-                        print(dato)
-                    if not hay_usuario:
-                        print("No se encuentran usuarios con criterio")
-                elif opc == 2:
+                # if opc == 1:
+                    #todo por hacer
+                if opc == 2:
                     libros_prestados = 0
                     libros_leidos = 0
                     dato = ""
