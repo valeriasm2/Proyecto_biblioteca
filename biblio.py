@@ -306,11 +306,25 @@ while flg00:
                 print("Opción fuera de rango.")
             else:
                 opc = int(opc)
-                # if opc == 1:
-                    #todo por hacer
-                if opc == 2:
-                    libros_prestados = 0
-                    libros_leidos = 0
+                if opc == 1:
+                    datos = ""
+                    nombre = input("Inserta el nombre: ")
+                    while not nombre.isalpha():
+                        print("Tiene que ser un digito")
+                        nombre = input("Inserta la nombre: ")
+                    sep = ""
+                    dnis = list(dic_users.keys())
+                    for dni in dnis:
+                        if dic_users[dni]["nombre"].lower().find(nombre.lower()) != -1:
+                                datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + sep + str(
+                                    dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(32) + str(
+                                    len(dic_users[dni]["prestamos"])).rjust(20) + str(len(dic_users[dni]["leidos"])).rjust(
+                                    20) + "\n"
+                    print(datos)
+
+
+
+                elif opc == 2:
                     dato = ""
                     edad = input("Inserta el edad: ")
 
@@ -318,28 +332,19 @@ while flg00:
                         print("Tiene que ser un digito")
                         edad = input("Inserta la edad: ")
                     edad = int(edad)
-                    hay_usuario = False
-                    for clave, valor in dic_users.items():
-                        if valor["edad"] == edad:
-                            hay_usuario = True
-                            for prestamos in valor["prestamos"]:
-                                libros_prestados += 1
-                            for leidos in valor["leidos"]:
-                                libros_leidos += 1
-                            dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(
-                                10) + str(valor["tfn"]).ljust(15) + \
-                                    valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(
-                                libros_leidos).rjust(15) + "\n"
-                            libros_leidos = 0
-                            libros_prestados = 0
-                    if hay_usuario:
-                        print("=" * 123 + "\n" + "Buscar por edad")
-                        print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
-                              "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
-                              "Libros leídos".rjust(15) + "\n" + "=" * 123)
-                        print(dato)
-                    if not hay_usuario:
-                        print("Usuario no encontrado")
+
+                    datos = ""
+                    sep = ""
+                    dnis = list(dic_users.keys())
+                    for dni in dnis:
+                        if str(dic_users[dni]["edad"]).find(str(edad)) != -1:
+                            datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + sep + str(
+                                dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(32) + str(
+                                len(dic_users[dni]["prestamos"])).rjust(20) + str(len(dic_users[dni]["leidos"])).rjust(
+                                20) + "\n"
+                    print(datos)
+
+
 
                 elif opc == 3:
                     flg022 = False
