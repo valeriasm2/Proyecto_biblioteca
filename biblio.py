@@ -274,10 +274,10 @@ while flg00:
                     print(datos)
 
                 elif opc == 4:
-                    print("=" * 123 + "\n" + "Listar usuarios por cantidad de libros leídos".center(123))
-                    print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
+                    print("=" * 125 + "\n" + "Listar usuarios por cantidad de libros leídos".center(125))
+                    print("=" * 125 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
                           "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
-                          "Libros leídos".rjust(15) + "\n" + "=" * 123)
+                          "Libros leídos".rjust(15) + "\n" + "=" * 125)
 
                     dnis = list(dic_users.keys())
                     datos = ""
@@ -313,6 +313,10 @@ while flg00:
                         print("Tiene que ser un digito")
                         nombre = input("Inserta la nombre: ")
                     sep = ""
+                    print("=" * 125 + "\n" + "Listar usuarios por cantidad de libros leídos".center(125))
+                    print("=" * 125 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
+                          "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
+                          "Libros leídos".rjust(15) + "\n" + "=" * 125)
                     dnis = list(dic_users.keys())
                     for dni in dnis:
                         if dic_users[dni]["nombre"].lower().find(nombre.lower()) != -1:
@@ -332,7 +336,10 @@ while flg00:
                         print("Tiene que ser un digito")
                         edad = input("Inserta la edad: ")
                     edad = int(edad)
-
+                    print("=" * 125 + "\n" + "Listar usuarios por cantidad de libros leídos".center(125))
+                    print("=" * 125 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
+                          "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
+                          "Libros leídos".rjust(15) + "\n" + "=" * 125)
                     datos = ""
                     sep = ""
                     dnis = list(dic_users.keys())
