@@ -108,13 +108,23 @@ while flg00:
             opc = int(opc)
             datos =""
             if opc == 1:
-                cabecera = ("\n" + "Listar todos los libros".center(133,"*") + "\n" + "Clave".ljust(10) + "Título".ljust(40) + "Autor".ljust(30) + "Año".ljust(8) +
-                            "Cantidad".rjust(5) + " "*5 + "Género".ljust(10) + "Edad".ljust(10) + "\n" + "*"*133 + "\n")
-                ##########
-                for clave in dic_libros:
-                    datos += (clave.ljust(10) + dic_libros[clave]["Título"].ljust(40) + dic_libros[clave]["Autor"].ljust(30) + str(dic_libros[clave]["Año"]).ljust(8) +
-                              str(dic_libros[clave]["Cantidad"]).rjust(8) + " "*5 + str(dic_libros[clave]["Género"]).ljust(10) + dic_libros[clave]["Edad"]).ljust(10) + "\n"
-                print(cabecera + datos + "*"*133 + "\n")
+                cabecera = ("\n" + "Listar todos los libros".center(153,"*") + "\n" + "Clave".ljust(10) + "Título".ljust(40) + "Autor".ljust(30) + "Año".ljust(8) +
+                            "Cantidad".rjust(5) + " "*5 + "Género".ljust(30) + "Edad".ljust(15) + "\n" + "*"*153 + "\n")
+                for clave, valor in dic_libros.items():
+                    generos_str = ""
+
+                    #Agregar cada género con una coma entre ellos
+                    for i in range(len(valor["Género"])):
+                        genero_id = valor["Género"][i]
+                        if genero_id in dic_generos:
+                            generos_str += dic_generos[genero_id]
+                            if i < len(valor["Género"]) - 1:  #Si no es el último género
+                                generos_str += ", "
+
+                    datos += (clave.ljust(10) + valor["Título"].ljust(40) + valor["Autor"].ljust(30) + str(valor["Año"]).ljust(8) +
+                              str(valor["Cantidad"]).rjust(8) + " "*5 + generos_str.ljust(30) + valor["Edad"]).ljust(15) + "\n"
+                print(cabecera+datos)
+                input("\nPresiona una tecla para continuar.")
             elif opc == 2:
                 print("Buscar libro")
                 flg01 = False
@@ -138,11 +148,95 @@ while flg00:
             else:
                 opc = int(opc)
                 if opc == 1:
-                    print("Buscar por título")
+                    cabecera = ("\n" + "Buscar por título".center(153, "*") + "\n" + "Clave".ljust(
+                        10) + "Título".ljust(40) + "Autor".ljust(30) + "Año".ljust(8) +
+                                "Cantidad".rjust(5) + " " * 5 + "Género".ljust(30) + "Edad".ljust(
+                                15) + "\n" + "*" * 153 + "\n")
+                    datos = ""
+                    titulo = input("\nTítulo para buscar: ").lower()
+
+                    for clave,valor in dic_libros.items():
+                        if titulo in valor["Título"].lower():
+                            generos_str = ""
+                            # Agregar cada género con una coma entre ellos
+                            for i in range(len(valor["Género"])):
+                                genero_id = valor["Género"][i]
+                                if genero_id in dic_generos:
+                                    generos_str += dic_generos[genero_id]
+                                    if i < len(valor["Género"]) - 1:  # Si no es el último género
+                                        generos_str += ", "
+
+                            datos += (clave.ljust(10) + valor["Título"].ljust(40) + valor["Autor"].ljust(30) + str(valor["Año"]).ljust(8) +
+                                      str(valor["Cantidad"]).rjust(8) + " " * 5 + generos_str.ljust(30) + valor["Edad"]).ljust(15) + "\n"
+
+                    # Verificar si se encontraron libros
+                    if datos:
+                        print(cabecera+datos)
+                    else:
+                        print("\nNo hay ningún título que contenga {}".format(titulo))
+                    input("\nPresiona una tecla para continuar.")
+
                 elif opc == 2:
-                    print("Buscar por autor")
+                    cabecera = ("\n" + "Buscar por autor".center(153, "*") + "\n" + "Clave".ljust(
+                        10) + "Título".ljust(40) + "Autor".ljust(30) + "Año".ljust(8) +
+                                "Cantidad".rjust(5) + " " * 5 + "Género".ljust(30) + "Edad".ljust(
+                                15) + "\n" + "*" * 153 + "\n")
+                    datos = ""
+                    autor = input("\nAutor para buscar: ").lower()
+
+                    for clave, valor in dic_libros.items():
+                        if autor in valor["Autor"].lower():
+                            generos_str = ""
+                            # Agregar cada género con una coma entre ellos
+                            for i in range(len(valor["Género"])):
+                                genero_id = valor["Género"][i]
+                                if genero_id in dic_generos:
+                                    generos_str += dic_generos[genero_id]
+                                    if i < len(valor["Género"]) - 1:  # Si no es el último género
+                                        generos_str += ", "
+
+                            datos += (clave.ljust(10) + valor["Título"].ljust(40) + valor["Autor"].ljust(30) + str(
+                                valor["Año"]).ljust(8) +
+                                      str(valor["Cantidad"]).rjust(8) + " " * 5 + generos_str.ljust(30) + valor[
+                                          "Edad"]).ljust(15) + "\n"
+
+                    # Verificar si se encontraron libros
+                    if datos:
+                        print(cabecera + datos)
+                    else:
+                        print("\nNo hay ningún autor que contenga {}".format(autor))
+                    input("\nPresiona una tecla para continuar.")
+
                 elif opc == 3:
-                    print("Buscar por género")
+                    cabecera = ("\n" + "Buscar por género".center(153, "*") + "\n" + "Clave".ljust(
+                        10) + "Título".ljust(40) + "Autor".ljust(30) + "Año".ljust(8) +
+                                "Cantidad".rjust(5) + " " * 5 + "Género".ljust(30) + "Edad".ljust(
+                                15) + "\n" + "*" * 153 + "\n")
+                    datos = ""
+                    genero = input("\nGénero para buscar: ").lower()
+
+                    for clave, valor in dic_libros.items():
+                        generos_str = ""
+                        # Agregar cada género con una coma entre ellos
+                        for i in range(len(valor["Género"])):
+                            genero_id = valor["Género"][i]
+                            if genero_id in dic_generos:
+                                generos_str += dic_generos[genero_id]
+                                if i < len(valor["Género"]) - 1:  # Si no es el último género
+                                    generos_str += ", "
+                        if genero in generos_str.lower():
+                            datos += (clave.ljust(10) + valor["Título"].ljust(40) + valor["Autor"].ljust(30) + str(
+                                valor["Año"]).ljust(8) +
+                                      str(valor["Cantidad"]).rjust(8) + " " * 5 + generos_str.ljust(30) + valor[
+                                          "Edad"]).ljust(15) + "\n"
+
+                    # Verificar si se encontraron libros
+                    if datos:
+                        print(cabecera + datos)
+                    else:
+                        print("\nNo hay ningún género que contenga {}".format(genero))
+                    input("\nPresiona una tecla para continuar.")
+
                 elif opc == 4:
                     flg012 = False
                     flg01 = True  # Regresar al menú de gestión de libros
