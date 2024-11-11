@@ -19,111 +19,121 @@ dic_users = {'1233423S':{'nombre':'Juan Perez', 'edad':24, 'tfn':456454847, 'mai
                          'prestamos':['ISB4578', 'ISB9123', 'ISB6384', 'ISB8475'], 'leidos':['ISB4928', 'ISB8475', 'ISB8301']},
              '5678910W':{'nombre':'Maria Garcia', 'edad':12, 'tfn':678901234, 'mail':'marigarcia@gmail.com',
                          'prestamos':['ISB1329', 'ISB7561', 'ISB3985'], 'leidos':['ISB2754', 'ISB1329']},
-             '12345678A':{'nombre':'Pedro Martínez', 'edad':5, 'tfn':543216789, 'mail':'pedromartinez@gmail.com',
+             '5674910K':{'nombre':'Pedro Martínez', 'edad':5, 'tfn':543216789, 'mail':'pedromartinez@gmail.com',
                          'prestamos':['ISB4578', 'ISB9123', 'ISB3985', 'ISB8301' , 'ISB7561'], 'leidos':['ISB4928', 'ISB2754', 'ISB6384']},
              '98765432Z':{'nombre':'Ana Martínez', 'edad':30, 'tfn':987654321, 'mail':'anamartinez@gmail.com',
                          'prestamos':['ISB1329', 'ISB7561', 'ISB8475'], 'leidos':['ISB2754','ISB3985','ISB8301']}
              }
 
-
-menu0232 = " Modificar usuario existente ".center(40, "=") + "\n" + "1) Editar datos personales" + "\n" + "2) Editar préstamos" + \
+# Menús de usuario y géneros
+menu0232 = " Modificar usuario existente ".center(40, "=") + "\n" + \
+           "1) Editar datos personales" + "\n" + "2) Editar préstamos" + \
            "\n" + "3) Añadir libro leído" + "\n" + "4) Volver atrás"
 
-menu02321 = " Editar datos personales ".center(40, "=") + "\n" + "1) Teléfono" + "\n" + "2) Email" + "\n" + "3) Volver atrás"
+menu02321 = " Editar datos personales ".center(40, "=") + "\n" + \
+            "1) Teléfono" + "\n" + "2) Email" + "\n" + "3) Volver atrás"
 
-menu02322 = " Editar préstamos ".center(40, "=") + "\n" + "1) Añadir libro prestado" + "\n" + "2) Eliminar libro prestado" + \
+menu02322 = " Editar préstamos ".center(40, "=") + "\n" + \
+            "1) Añadir libro prestamos" + "\n" + "2) Eliminar libro prestamos" + \
             "\n" + "3) Volver atrás"
 
-# MENÚS GÉNEROS
-menu03 = " Gestión de géneros ".center(40, "=") + "\n" + "1) Listar todos los géneros" + "\n" + "2) Añadir nuevo género" + \
-         "\n" + "3) Editar género" + "\n" + "4) Eliminar género" + "\n" + "5) Volver atrás"
+menu03 = " Gestión de géneros ".center(40, "=") + "\n" + \
+         "1) Listar todos los géneros" + "\n" + "2) Añadir nuevo género" + \
+         "\n" + "3) Editar género" + "\n" + "4) Eliminar género" + "\n" + \
+         "5) Volver atrás"
 
-flg03 = False  # Gestión de Géneros
+# Variables de control
 flg0232 = False  # Modificar usuario existente
 flg02321 = False  # Editar datos personales
-flg02322 = False  # Editar datos prestamos
+flg02322 = False  # Editar préstamos
+flg03 = False  # Gestión de géneros
 
-
-# Sección de modificar usuario existente
-while flg0232: # Modificar usuario existente
+# Iniciar con la opción de modificar usuario existente
+dni = input("Ingrese el DNI del usuario a modificar: ")
+if dni not in dic_users:
+    print("El DNI no está registrado.")
+else:
+    flg0232 = True
+# Sección de Modificar Usuario Existente
+while flg0232:
     print(menu0232)
     opc = input("Opción: ")
-    if not opc.isdigit():
-        print("La opción debe ser numérica.")
-    elif int(opc) < 1 or int(opc) > 4:
+    if not opc.isdigit() or not 1 <= int(opc) <= 4:
         print("Opción fuera de rango.")
     else:
         opc = int(opc)
+        # Editar datos personales
         if opc == 1:
             print("Editar datos personales")
             flg0232 = False
             flg02321 = True
+        # Editar préstamos
         elif opc == 2:
             print("Editar préstamos")
             flg0232 = False
-            menu02322 = True
+            flg02322 = True
+        # Añadir libro leído
         elif opc == 3:
-            print("Añadir libro leído")
-        elif opc == 4:
-            flg0232 = False
-            flg023 = True  # Regresar al menú de editar usuarios
+            libro_leido = input("Añada el isbn del libro leido: ")
+            if libro_leido in dic_libros    :
+                if libro_leido not in dic_users[dni]["leidos"]:
+                    dic_users[dni]["leidos"].append(libro_leido)
+                    print("Libro añadido a la lista de leídos.")
+            #print(dic_users)
 
-        # Editar datos personales
+        elif opc == 4:  # Volver atrás
+            flg0232 = False
+
+    # Submenú: Editar datos personales
     while flg02321:
         print(menu02321)
         opc = input("Opción: ")
-        if not opc.isdigit():
-            print("La opción debe ser numérica.")
-        elif int(opc) < 1 or int(opc) > 3:
+        if not opc.isdigit() or not 1 <= int(opc) <= 3:
             print("Opción fuera de rango.")
         else:
-            if opc == 1:  # Editar teléfono
-                nuevo_tfn = input("¿Qué número quieres cambiar? : ")
-                # Validar que el número de teléfono tenga 9 dígitos
+            opc = int(opc)
+            # Editar teléfono
+            if opc == 1:
+                nuevo_tfn = input("Ingrese el nuevo número de teléfono (9 dígitos): ")
                 if len(nuevo_tfn) == 9 and nuevo_tfn.isdigit():
                     dic_users[dni]["tfn"] = int(nuevo_tfn)
                     print("El teléfono ha sido cambiado correctamente.")
+                    #print(dic_users)
                 else:
-                    print("El teléfono debe tener 9 dígitos.")
+                    print("El teléfono debe tener 9 dígitos numéricos.")
 
-            elif opc == 2: # Editar email
-                nuevo_mail = input("¿Qué correo quieres cambiar? : ")
+            # Editar email
+            elif opc == 2:
+                nuevo_mail = input("Ingrese el nuevo correo electrónico: ")
                 mail_correcto = True
-                # Comprobamos si el correo tiene un '@'
-                user = nuevo_mail.find("@")
-                if nuevo_mail.count("@") != 1 or user == -1:
-                    print("El correo {} es incorrecto (debe tener exactamente un '@').".format(nuevo_mail))
+                # Verificar formato del correo
+                ini = nuevo_mail.find("@")
+                if nuevo_mail.count("@") != 1 or ini == -1:
+                    print("Correo inválido: debe contener un solo '@'.")
                     mail_correcto = False
                 else:
-                    # Extraer la parte del usuario y la del dominio
-                    usuario = nuevo_mail[0:user]
-                    dominio = nuevo_mail[user + 1:]
+                    usuario = nuevo_mail[:ini]
+                    dominio = nuevo_mail[ini + 1:]
 
-                    # Verificar que el usuario no tenga puntos consecutivos o que empiece/termine con un punto
                     if ".." in usuario or usuario.startswith(".") or usuario.endswith("."):
-                        print("El correo {} es incorrecto (problema en la parte del usuario).".format(nuevo_mail))
+                        print("Correo inválido: error en la parte del usuario.")
                         mail_correcto = False
 
-                    # Verificar que el dominio no tenga puntos consecutivos, que empiece o termine con un punto
                     if ".." in dominio or dominio.startswith(".") or dominio.endswith("."):
-                        print("El correo {} es incorrecto (problema en la parte del dominio).".format(nuevo_mail))
+                        print("Correo inválido: error en la parte del dominio.")
                         mail_correcto = False
-                    else:
-                        # Verificar que el dominio tenga al menos un punto
-                        dom = dominio.find(".")
-                        if dom == -1:
-                            print("El correo {} es incorrecto (dominio sin extensión).".format(nuevo_mail))
-                            mail_correcto = False
+                    elif "." not in dominio:
+                        print("Correo inválido: dominio sin extensión.")
+                        mail_correcto = False
 
-                # Si el correo es válido, lo asignamos al usuario
                 if mail_correcto:
                     dic_users[dni]["mail"] = nuevo_mail
-                    print("El correo electrónico ha sido cambiado a: {}".format(nuevo_mail))
+                    print("Correo actualizado a:", nuevo_mail)
 
+            # Volver atrás
             elif opc == 3:
-                    flg02321 = False
-                    flg0232 = True
-
+                flg02321 = False
+                flg0232 = True
 
     # Editar datos prestamos
     while flg02322:
@@ -136,9 +146,21 @@ while flg0232: # Modificar usuario existente
         else:
             opc = int(opc)
             if opc == 1:
-                print("Añadir libro prestado")
+                libro_prestamos = input("Introduce el isbn del libro prestamos: ")
+                if libro_prestamos in dic_libros:
+                    if libro_prestamos not in dic_users[dni]["prestamos"]:
+                        dic_users[dni]["prestamos"].append(libro_prestamos)
+                        print("Libro añadido a la lista de prestamos.")
+                    else:
+                        print("El libro ya exite en la lista.")
+                print(dic_users)
             elif opc == 2:
-                print("Eliminar libro prestado")
+                libro_a_eliminar = input("Introduce el isbn del libro a eliminar: ")
+                if libro_a_eliminar in dic_users[dni]["prestamos"]:
+                    dic_users[dni]["prestamos"].remove(libro_a_eliminar)
+                    print("Libro eliminado de la lista de prestamos.")
+                print(dic_users)
+
             elif opc == 3:
                 flg02322 = False
                 flg0232 = True
