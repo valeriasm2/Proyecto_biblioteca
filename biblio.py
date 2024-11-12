@@ -15,9 +15,9 @@ dic_generos = {
     1: 'Aventura', 2: 'Realismo Mágico', 3: 'Romance', 4: 'Ficción', 5: 'Distopía', 6: 'Fantasía', 7: 'Épica',
     8: 'Fantasía', 9: 'Novela psicológica', 10: 'Novela'}
 
-dic_users = {'1233423S':{'nombre':'Juan Perez', 'edad':24, 'tfn':456454847, 'mail':'juanperez@gmail.com',
+dic_users = {'12334236S':{'nombre':'Juan Perez', 'edad':24, 'tfn':456454847, 'mail':'juanperez@gmail.com',
                          'prestamos':['ISB4578', 'ISB9123', 'ISB6384'], 'leidos':['ISB4928', 'ISB8475']},
-             '5678910W':{'nombre':'Maria Garcia', 'edad':12, 'tfn':678901234, 'mail':'marigarcia@gmail.com',
+             '56789102W':{'nombre':'Maria Garcia', 'edad':12, 'tfn':678901234, 'mail':'marigarcia@gmail.com',
                          'prestamos':['ISB1329', 'ISB7561', 'ISB3985'], 'leidos':['ISB2754', 'ISB1329']},
              '12345678A':{'nombre':'Pedro Martínez', 'edad':5, 'tfn':543216789, 'mail':'pedromartinez@gmail.com',
                          'prestamos':['ISB4578', 'ISB9123', 'ISB8301'], 'leidos':['ISB4928']},
@@ -25,6 +25,7 @@ dic_users = {'1233423S':{'nombre':'Juan Perez', 'edad':24, 'tfn':456454847, 'mai
                          'prestamos':['ISB1329', 'ISB7561', 'ISB8475'], 'leidos':['ISB2754','ISB3985','ISB8301']}
              }
 
+letras_dni = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
 
 # MENÚ PRINCIPAL
 menu00 = " Menú principal ".center(40, "=") + "\n" + "1) Gestión de Libros" + "\n" + \
@@ -369,6 +370,78 @@ while flg00:
                 opc = int(opc)
                 if opc == 1:
                     print("Añadir usuario nuevo")
+                    letra_encontrada = ""
+                    dni = input("Inserta tu dni: ")
+                    while not dni[:-1].isdigit():
+                        print("El dni tine que contener números")
+                        dni = input("Inserta tu dni: ")
+                    comparacion = int(dni[:-1]) % len(letras_dni)
+                    for i in range (len(letras_dni)):
+                        if i == comparacion:
+                            letra_encontrada = letras_dni[i]
+
+                    while len(dni) != 9 or not dni[-1:].isalpha() or letra_encontrada.upper() != dni[-1:].upper():
+                        if len(dni) != 9:
+                            print("La longitud del dni no es correcta")
+                        elif not dni[-1:].isalpha():
+                            print("No has insertado una letra en el dni")
+                        elif letra_encontrada.upper() != dni[-1:].upper():
+                            print("El dni no tiene la letra correcta, vuelve a insertarla")
+                        input("Enter para seguir")
+                        dni = input("\nInserta tu dni: ")
+
+                    nombre = input("Inserta tu nombre: ")
+                    while not nombre.replace(" ","").isalpha():
+                        print("El nombre solamente puede contener espacios o letras")
+                        input("Enter para seguir")
+                        nombre = input("\nInserta tu nombre: ")
+                    edad = input("Inserta tu edad: ")
+                    while not edad.isdigit() or int(edad) > 120:
+                        if not edad.isdigit():
+                            print("La edad debe de ser un número")
+                        elif int(edad) > 120:
+                            print("Inserta tu edad")
+                        input("Enter para seguir")
+                        edad = input("\nInserta tu edad: ")
+                    tfn = input("Inserta el telefóno: ")
+                    while tfn.startswith("+") or len(tfn) != 9:
+                        if tfn.startswith("+"):
+                            print("El telefóno tiene que ir sin prefijo")
+                        elif len(tfn) != 9:
+                            print("La longitud del telefóno no es correcto")
+                        input("Enter para seguir")
+                        tfn = input("Inserta el telefóno: ")
+                    mail = input("Inserta el mail: ")
+
+                    user = mail[:mail.find("@")]
+                    dominio = mail[mail.find("@"):]
+                    mail_correcto = False
+                    print("user",user,"dominio",dominio)
+                    print(user[-1:])
+                    while not mail_correcto:
+                        if not user[0].isalpha():
+                            print("El correo tiene que empezar con letras")
+                        elif not user[-1:].isalpha() and not user[-1:].isdigit():
+                            print("Antes del @ no puede haber ningun caracter que no sea alfabetico o numerico")
+                        elif not dominio[:-1].isalpha() and dominio[:-1].isdigit():
+                            print("Después del @ no puede haber ningun caracter que no sea alfabetico")
+                        elif not dominio[-1:].isalpha():
+                            print("El correo tiene que acabar con letras")
+                        elif len(dominio[dominio.find("."):]) < 3 or len(dominio[dominio.find("."):]) > 4:
+                            print(len(dominio[dominio.find("."):]))
+                            print("La longitud del dominio tiene que ser entre 2 y 3 caracteres")
+                        else:
+                            mail_correcto = True
+                            break
+
+                        input("Enter para seguir")
+                        mail = input("Inserta el mail: ")
+
+
+
+                    dic_users.update({dni:{"nombre":nombre,"edad":edad,"tfn":tfn,"mail":mail,"prestamos":[],"leidos":[]}})
+                    print(dic_users)
+
                 elif opc == 2:
                     print("Modificar usuario existente")
                     flg023 = False
