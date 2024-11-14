@@ -25,8 +25,6 @@ dic_users = {'12334236S':{'nombre':'Juan Perez', 'edad':24, 'tfn':456454847, 'ma
                          'prestamos':['ISB1329', 'ISB7561', 'ISB8475'], 'leidos':['ISB2754','ISB3985','ISB8301']}
              }
 
-letras_dni = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
-
 # MENÚ PRINCIPAL
 menu00 = " Menú principal ".center(40, "=") + "\n" + "1) Gestión de Libros" + "\n" + \
          "2) Gestión de Usuarios" + "\n" + "3) Gestión de Géneros" + "\n" + "4) Exit" + "\n"
@@ -73,6 +71,13 @@ flg023 = False  # Editar usuarios
 flg0232 = False  # Modificar usuario existente
 flg02321 = False  # Editar datos personales
 flg02322 = False  # Editar datos prestamos
+
+# Letras dni, para confirmar que el DNI del usuario es correcto
+letras_dni = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
+#Separación para la cabecera
+sep = " "
+#Cabecera de la tabla de usuarios
+cabecera_tabla_usuarios = "DNI".ljust(12) + "Nombre".ljust(30) + sep + "Edad".rjust(10) + "Mail".rjust(42) + "Prestamos".rjust(20) + "Leidos".rjust(20) + "\n"
 
 # Menú principal
 while flg00:
@@ -226,25 +231,18 @@ while flg00:
                         for i in range (len(dnis)-pasada-1):
                             if dnis[i] > dnis[i+1]:
                                 dnis[i],dnis[i+1] = dnis[i+1],dnis[i]
+                    print(cabecera_tabla_usuarios)
                     for dni in dnis:
                         datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + sep + str(
-                            dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(32) + str(
+                            dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(42) + str(
                             len(dic_users[dni]["prestamos"])).rjust(20) + str(len(dic_users[dni]["leidos"])).rjust(
                             20) + "\n"
                     print(datos)
-                    # dic_users = {'1233423S': {'nombre': 'Juan Perez', 'edad': 24, 'tfn': 456454847,
-                    #                           'mail': 'juanperez@gmail.com',
-                    #                           'prestamos': ['ISB4578', 'ISB9123', 'ISB6384'],
-                    #                           'leidos': ['ISB4928', 'ISB8475']},
-                    #              }
 
 
                 elif opc == 2:
                     print("=" * 125 + "\n" + "Listar usuarios por nombre".center(125)+"\n"+"=" * 125)
-                    print("=" * 125 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
-                          "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
-                          "Libros leídos".rjust(15) + "\n" + "=" * 125)
-
+                    print(cabecera_tabla_usuarios)
                     datos = ""
                     dnis = list(dic_users.keys())
                     sep = " "
@@ -259,10 +257,7 @@ while flg00:
 
                 elif opc == 3:
                     print("=" * 125 + "\n" + "Listar usuarios por cantidad de libros prestados".center(125) + "\n" + "=" * 125)
-                    print("=" * 125 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
-                          "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
-                          "Libros leídos".rjust(15) + "\n" + "=" * 125)
-
+                    print(cabecera_tabla_usuarios)
                     datos = ""
                     sep = ""
                     dnis = list(dic_users.keys())
@@ -276,10 +271,7 @@ while flg00:
 
                 elif opc == 4:
                     print("=" * 125 + "\n" + "Listar usuarios por cantidad de libros leídos".center(125))
-                    print("=" * 125 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
-                          "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
-                          "Libros leídos".rjust(15) + "\n" + "=" * 125)
-
+                    print(cabecera_tabla_usuarios)
                     dnis = list(dic_users.keys())
                     datos = ""
                     sep = ""
@@ -315,9 +307,7 @@ while flg00:
                         nombre = input("Inserta la nombre: ")
                     sep = ""
                     print("=" * 125 + "\n" + "Listar usuarios por cantidad de libros leídos".center(125))
-                    print("=" * 125 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
-                          "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
-                          "Libros leídos".rjust(15) + "\n" + "=" * 125)
+                    print(cabecera_tabla_usuarios)
                     dnis = list(dic_users.keys())
                     for dni in dnis:
                         if dic_users[dni]["nombre"].lower().find(nombre.lower()) != -1:
@@ -326,21 +316,15 @@ while flg00:
                                     len(dic_users[dni]["prestamos"])).rjust(20) + str(len(dic_users[dni]["leidos"])).rjust(
                                     20) + "\n"
                     print(datos)
-
-
-
                 elif opc == 2:
                     dato = ""
                     edad = input("Inserta el edad: ")
-
                     while not edad.isdigit():
                         print("Tiene que ser un digito")
                         edad = input("Inserta la edad: ")
                     edad = int(edad)
                     print("=" * 125 + "\n" + "Listar usuarios por cantidad de libros leídos".center(125))
-                    print("=" * 125 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
-                          "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
-                          "Libros leídos".rjust(15) + "\n" + "=" * 125)
+                    print(cabecera_tabla_usuarios)
                     datos = ""
                     sep = ""
                     dnis = list(dic_users.keys())
