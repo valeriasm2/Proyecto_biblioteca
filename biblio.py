@@ -1,20 +1,20 @@
 dic_libros = {
     'ISB4578': {'Título': 'Don Quijote de la Mancha', 'Autor': 'Miguel de Cervantes', 'Año': 1605, 'Cantidad': 4,
-                'Género': [1, 4], 'Edad': 'Adultos'},
+                'Género': [1, 4, 7], 'Edad': 'Adultos'},
     'ISB9123': {'Título': 'Cien años de soledad', 'Autor': 'Gabriel García Márquez', 'Año': 1967, 'Cantidad': 6,
-                'Género': [2, 4], 'Edad': 'Adultos'},
-    'ISB6384': {'Título': 'Orgullo y prejuicio', 'Autor': 'Jane Austen', 'Año': 1813, 'Cantidad': 3, 'Género': [3, 10],
+                'Género': [2, 4, 9], 'Edad': 'Adultos'},
+    'ISB6384': {'Título': 'Orgullo y prejuicio', 'Autor': 'Jane Austen', 'Año': 1813, 'Cantidad': 3, 'Género': [3, 4, 9],
                 'Edad': 'Adolescentes y Adultos'},
-    'ISB2754': {'Título': 'Matar a un ruiseñor', 'Autor': 'Harper Lee', 'Año': 1960, 'Cantidad': 5, 'Género': [4, 10],
+    'ISB2754': {'Título': 'Matar a un ruiseñor', 'Autor': 'Harper Lee', 'Año': 1960, 'Cantidad': 5, 'Género': [4, 9, 10],
                 'Edad': 'Adolescentes y Adultos'},
-    'ISB8301': {'Título': '1984', 'Autor': 'George Orwell', 'Año': 1949, 'Cantidad': 7, 'Género': [5, 4],
+    'ISB8301': {'Título': '1984', 'Autor': 'George Orwell', 'Año': 1949, 'Cantidad': 7, 'Género': [5, 4, 10],
                 'Edad': 'Adultos'},
     'ISB4928': {'Título': 'El Principito', 'Autor': 'Antoine de Saint-Exupéry', 'Año': 1943, 'Cantidad': 10,
-                'Género': [6, 4], 'Edad': 'Todas las edades'},
-    'ISB8475': {'Título': 'La Odisea', 'Autor': 'Homero', 'Año': 1614, 'Cantidad': 2, 'Género': [7, 1],
+                'Género': [6, 7, 10], 'Edad': 'Todas las edades'},
+    'ISB8475': {'Título': 'La Odisea', 'Autor': 'Homero', 'Año': 1614, 'Cantidad': 2, 'Género': [7, 1, 6],
                 'Edad': 'Adultos'},
     'ISB1329': {'Título': 'Harry Potter y la piedra filosofal', 'Autor': 'J.K. Rowling', 'Año': 1997, 'Cantidad': 8,
-                'Género': [8], 'Edad': 'Infantil y Juvenil'},
+                'Género': [8, 6], 'Edad': 'Infantil y Juvenil'},
     'ISB7561': {'Título': 'Crimen y castigo', 'Autor': 'Fiódor Dostoyevski', 'Año': 1866, 'Cantidad': 4,
                 'Género': [9, 10], 'Edad': 'Adultos'},
     'ISB3985': {'Título': 'En el camino', 'Autor': 'Jack Kerouac', 'Año': 1957, 'Cantidad': 5, 'Género': [10, 4],
@@ -367,6 +367,7 @@ while flg00:
                 print("El DNI no está registrado.")
             else:
                 flg0232 = True
+
             # Sección de Modificar Usuario Existente
             while flg0232:
                 print(menu0232)
@@ -380,11 +381,13 @@ while flg00:
                         print("Editar datos personales")
                         flg0232 = False
                         flg02321 = True
+
                     # Editar préstamos
                     elif opc == 2:
                         print("Editar préstamos")
                         flg0232 = False
                         flg02322 = True
+
                     # Añadir libro leído
                     elif opc == 3:
                         libro_leido = input("Añada el isbn del libro leido: ")
@@ -393,7 +396,6 @@ while flg00:
                                 dic_users[dni]["leidos"].append(libro_leido)
                                 print("Libro añadido a la lista de leídos.")
                         # print(dic_users)
-
                     elif opc == 4:  # Volver atrás
                         flg0232 = False
 
@@ -500,9 +502,10 @@ while flg00:
             print("Opción fuera de rango.")
         else:
             opc = int(opc)
+            # Listar todos los géneros
             if opc == 1:
-                print("Listar todos los géneros")
-                cabecera = "=" * 35 + "\n" + "ID".ljust(15) + "Género".ljust(20) + "\n" + "=" * 35
+                cabecera = "\n" + " Listado de Géneros ".center(35, "=") + "\n" + "ID".ljust(15) + "Género".ljust(20) + "\n" + "=" * 35
+                print(cabecera)
                 lista_generos = list(dic_generos.keys())
                 for pasada in range(len(lista_generos) - 1):
                     for i in range(len(lista_generos) - 1 - pasada):
@@ -513,10 +516,11 @@ while flg00:
                     print(datos)
                 input("Press to continue..." + "\n")
 
+            # Añadir nuevo género
             elif opc == 2:
-                print("Añadir nuevo género")
+                cabecera = "\n" + " Añadir Nuevo Género ".center(40, "*")
+                print(cabecera)
                 nuevo_genero = input("Introduce el nombre del nuevo género: ")
-                # Verificar si el género ya existe recorriendo el diccionario
                 existe = False
                 for clave, valor in dic_generos.items():
                     if valor == nuevo_genero:
@@ -531,11 +535,26 @@ while flg00:
                     print("Género '{}' añadido correctamente con el ID {}.".format(nuevo_genero , nuevo_id))
                     input("Press to continue..." + "\n")
 
+            # Editar género
             elif opc == 3:
-                print("Editar género")
+                cabecera = "\n" + " Editar género ".center(40, "*")
+                print(cabecera)
+                id_genero = input("Introduce el ID del género a editar: ")
+                if id_genero in dic_generos:
+                    nuevo_genero = input("Introduce el nuevo nombre del género: ")
+                    dic_generos[id_genero] = nuevo_genero
+                    print("Género '{}' editado correctamente.".format(nuevo_genero))
+                    input("Press to continue..." + "\n")
 
+            # Eliminar género
             elif opc == 4:
                 print("Eliminar género")
+                id_genero = input("Introduce el ID del género a eliminar: ")
+                if id_genero in dic_generos:
+                    print("¿Está seguro de eliminar el género con ID {}? (s/n)".format(id_genero))
+                    del dic_generos[id_genero]
+                    print("Género con ID {} eliminado correctamente.".format(id_genero))
+                    input("Press to continue..." + "\n")
 
             elif opc == 5:
                 flg03 = False
