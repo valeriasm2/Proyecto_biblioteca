@@ -222,31 +222,32 @@ while flg00:
                 print("Opción fuera de rango.")
             else:
                 opc = int(opc)
-                if opc == 1:
+                if opc == 1: # Se lista usuarios por dni
                     print("=" * 135 + "\n" + "Listar usuarios por DNI".center(135)+"\n"+"=" * 135)
-                    dnis = list(dic_users.keys())
-                    datos = ""
+                    dnis = list(dic_users.keys()) # Se guardan los "ids" de los elementos del diccionario
+                    datos = "" #variable que después se utilizará para imprimir los dnis ordenados
                     sep = " "
-                    for pasada in range (len(dnis)-1):
-                        for i in range (len(dnis)-pasada-1):
-                            if dnis[i] > dnis[i+1]:
-                                dnis[i],dnis[i+1] = dnis[i+1],dnis[i]
+                    # Método burbuja para ordenar
+                    for pasada in range (len(dnis)-1): # se resta uno al len de dnis, porque solamente se comprobará en este caso 3 veces, si añadiera más gente se sumaría más
+                        for i in range (len(dnis)-pasada-1): # se resta la pasada (indice) del anterior bucle con la resta anterior, ya que las comprobaciones suman al indice y va restando la longitud, porque se van comprobando menos veces.
+                            if dnis[i] > dnis[i+1]: #se compara el elemento anterior sea más grande que el siguiente elemento
+                                dnis[i],dnis[i+1] = dnis[i+1],dnis[i] #en el caso que se cumpla lo anterior, se cambian la posición entre ellos para ordenar
                     print(cabecera_tabla_usuarios)
-                    for dni in dnis:
+                    for dni in dnis: #para poder acceder a los elementos dentro del diccionario hago un for de la variable que contiene las keys.
                         datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + sep + str(
                             dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(42) + str(
                             len(dic_users[dni]["prestamos"])).rjust(20) + str(len(dic_users[dni]["leidos"])).rjust(
                             20) + "\n"
-                    print(datos)
+                    print(datos) # se imprime la información de dentro del diccionario, con estilos
 
 
-                elif opc == 2:
+                elif opc == 2: # Se lista por nombre
                     print("=" * 135 + "\n" + "Listar usuarios por nombre".center(135)+"\n"+"=" * 135)
                     print(cabecera_tabla_usuarios)
                     datos = ""
                     dnis = list(dic_users.keys())
                     sep = " "
-
+                    #Método burbuja para ordenar
                     for pasada in range(len(dnis) - 1):
                         for i in range(len(dnis) - pasada - 1):
                             if dic_users[dnis[i]]["nombre"] > dic_users[dnis[i + 1]]["nombre"]:
@@ -258,12 +259,13 @@ while flg00:
                                 20) + "\n"
                     print(datos)
 
-                elif opc == 3:
+                elif opc == 3: # Se lista por libros prestados
                     print("=" * 135 + "\n" + "Listar usuarios por cantidad de libros prestados".center(135) + "\n" + "=" * 135)
                     print(cabecera_tabla_usuarios)
                     datos = ""
                     sep = ""
                     dnis = list(dic_users.keys())
+                    #Método burbuja
                     for pasada in range (len(dnis)-1):
                         for i in range (len(dnis)-pasada-1):
                             if len(dic_users[dnis[i]]["prestamos"]) > len(dic_users[dnis[i+1]]["prestamos"]):
@@ -274,7 +276,7 @@ while flg00:
                             len(dic_users[dni]["prestamos"])).rjust(20) + str(len(dic_users[dni]["leidos"])).rjust(
                             20) + "\n"
                     print(datos)
-                elif opc == 4:
+                elif opc == 4: #Se lista por la cantidad de libros leídos
                     print("=" * 135 + "\n" + "Listar usuarios por cantidad de libros leídos".center(135)+ "\n"+  "=" * 135)
                     print(cabecera_tabla_usuarios)
                     dnis = list(dic_users.keys())
@@ -305,35 +307,35 @@ while flg00:
             else:
                 opc = int(opc)
                 if opc == 1:
-                    datos = ""
-                    nombre = input("Inserta el nombre: ")
-                    while not nombre.isalpha():
-                        print("Tiene que ser un digito")
+                    datos = "" # se inicia una variable donde más tarde se guardarán los datos para enseñarlos.
+                    sep = " " # un separador que nos ayudará para enseñar los datos.
+                    nombre = input("Inserta el nombre: ") #se pide que el usuario ponga una letra para encontrar el usuario que quiere (que el nombre contenga la letra)
+                    while not nombre.isalpha(): # se mira lo que ha introducido el usuario sea una letra
+                        print("Tiene que ser letras") # si no lo es, enseña este mensaje de error y vuelve a pedirle que inserte el texto
                         nombre = input("Inserta la nombre: ")
-                    sep = ""
                     print("=" * 135 + "\n" + "Listar usuarios por cantidad de libros leídos".center(135)+"\n"+"=" * 135)
                     print(cabecera_tabla_usuarios)
-                    dnis = list(dic_users.keys())
-                    for dni in dnis:
-                        if dic_users[dni]["nombre"].lower().find(nombre.lower()) != -1:
+                    dnis = list(dic_users.keys()) #se agrupa en una lista los "ids" de los elementos del diccionario.
+                    for dni in dnis: #para sacar todos los elementos del diccionario se hace este bucle.
+                        if dic_users[dni]["nombre"].lower().find(nombre.lower()) != -1: #se mira de que en el apartado nombre del diccionario,
+                            # si se encuentra la letra que ha puesto el usuario. Si es diferente a -1 es que se ha encontrado la letra en algún usuario.
                             datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + sep + str(
                                     dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(43) + str(
                                     len(dic_users[dni]["prestamos"])).rjust(20) + str(
                                     len(dic_users[dni]["leidos"])).rjust(
                                     20) + "\n"
-                    print(datos)
+                    print(datos) # se enseña los datos de la gente ordenada con estilos.
                 elif opc == 2:
-                    dato = ""
-                    edad = input("Inserta el edad: ")
-                    while not edad.isdigit():
-                        print("Tiene que ser un digito")
+                    datos = ""
+                    sep = ""
+                    dnis = list(dic_users.keys()) # se agrupan todas las "ids" de los elementos dentro de una lista.
+                    edad = input("Inserta el edad: ") #le decimos al usuario que inserte la edad del usuario que quiere buscar
+                    while not edad.isdigit():# se comprueba de que lo que ha metido el usuario sea un número
+                        print("Tiene que ser un digito") #si no lo es, enseñara este mensaje de error y nos volverá a preguntar la edad
                         edad = input("Inserta la edad: ")
                     edad = int(edad)
                     print("=" * 135 + "\n" + "Listar usuarios por cantidad de libros leídos".center(135) +"\n"+"="*135)
                     print(cabecera_tabla_usuarios)
-                    datos = ""
-                    sep = ""
-                    dnis = list(dic_users.keys())
                     for dni in dnis:
                         if str(dic_users[dni]["edad"]).find(str(edad)) != -1:
                             datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + sep + str(
