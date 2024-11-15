@@ -239,80 +239,9 @@ while flg00:
             else:
                 opc = int(opc)
                 if opc == 1:
-                    print("=" * 123 + "\n" + "Listar usuarios por DNI".center(123))
-                    dato = ""
-                    libros_leidos = 0
-                    libros_prestados = 0
-                    dni_ordenado = []
-                    print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(
-                        10) + "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(
-                        15) + "Libros leídos".rjust(15) + "\n" + "=" * 123)
-                    for clave, valor in dic_users.items():
-                        if len(dni_ordenado) == 0:
-                            dni_ordenado.append((clave, valor))
-                        else:
-                            insert_name = False
-                            for i in range(len(dni_ordenado)):
-                                tupla = dni_ordenado[i]
-                                clave1 = tupla[0]
-                                valor1 = tupla[1]
-                                if clave < clave1:
-                                    dni_ordenado.insert(i, (clave, valor))
-                                    insert_name = True
-                                    break
-                            if not insert_name:
-                                dni_ordenado.append((clave, valor))
-
-                    for clave, valor in dni_ordenado:
-                        for prestamos in valor["prestamos"]:
-                            libros_prestados += 1
-                        for leidos in valor["leidos"]:
-                            libros_leidos += 1
-                        dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(
-                            10) + str(valor["tfn"]).ljust(15) + \
-                                valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(
-                            libros_leidos).rjust(15) + "\n"
-                        libros_leidos = 0
-                        libros_prestados = 0
-                    print(dato)
-                #listar por nombres
+                    print("listar por dni ")
                 elif opc == 2:
-                    print("=" * 123 + "\n" + "Listar usuarios por nombre".center(123))
-                    nombre_ordenado = []
-                    libros_prestados = 0
-                    libros_leidos = 0
-                    dato = ""
-                    print("=" * 123 + "\n" + "DNI".ljust(15) + "Nombre".ljust(20) + "Edad".ljust(10) + \
-                          "Telefóno".ljust(15) + "Mail".ljust(32) + "Libros prestados".rjust(15) + \
-                          "Libros leídos".rjust(15) + "\n" + "=" * 123)
-                    for clave, valor in dic_users.items():
-                        if len(nombre_ordenado) == 0:
-                            nombre_ordenado.append((clave, valor))
-                        else:
-                            insert_name = False
-                            for l in range(len(nombre_ordenado)):
-                                tupla = nombre_ordenado[l]
-                                clave1 = tupla[0]
-                                valor1 = tupla[1]
-                                if valor["nombre"] < valor1["nombre"]:
-                                    nombre_ordenado.insert(l, (clave, valor))
-                                    insert_name = True
-                                    break
-                            if not insert_name:
-                                nombre_ordenado.append((clave, valor))
-
-                    for clave, valor in nombre_ordenado:
-                        for prestamos in valor["prestamos"]:
-                            libros_prestados += 1
-                        for leidos in valor["leidos"]:
-                            libros_leidos += 1
-                        dato += clave.ljust(15) + valor["nombre"].ljust(20) + str(valor["edad"]).ljust(10) + str(
-                            valor["tfn"]).ljust(15) + \
-                                valor["mail"].ljust(32) + str(libros_prestados).rjust(15) + str(libros_leidos).rjust(
-                            15) + "\n"
-                        libros_leidos = 0
-                        libros_prestados = 0
-                    print(dato)
+                    print("Listar usuarios por nombre")
                 elif opc == 3:
                     print("Listar usuarios por cantidad de libros prestados")
                 elif opc == 4:
@@ -340,6 +269,7 @@ while flg00:
                     flg02 = True  # Regresar al menú de gestión de usuarios
 
         # Sección de editar usuarios
+        # Sección de editar usuarios
         while flg023:
             print(menu023)
             opc = input("Opción: ")
@@ -350,23 +280,23 @@ while flg00:
             else:
                 opc = int(opc)
                 if opc == 1:
-                    print("Añadir usuario nuevo")
+                    print("Agregar usuario nuevo")
                 elif opc == 2:
-                    print("Modificar usuario existente")
+                    cabecera = "\n" + " Modificar Usuario Existente ".center(40, "=")
+                    print(cabecera)
                     flg023 = False
-                    flg0232 = True
+
+                    # Inicializar la variable 'dni' antes de usarla
+                    dni = input("Ingrese el DNI del usuario a modificar: ")
+                    if dni not in dic_users:
+                        print("El DNI no está registrado.")
+                    else:
+                        flg0232 = True
                 elif opc == 3:
                     print("Eliminar usuario")
                 elif opc == 4:
                     flg023 = False
                     flg02 = True  # Regresar al menú de gestión de usuarios
-
-            # Iniciar con la opción de modificar usuario existente
-            dni = input("Ingrese el DNI del usuario a modificar: ")
-            if dni not in dic_users:
-                print("El DNI no está registrado.")
-            else:
-                flg0232 = True
 
             # Sección de Modificar Usuario Existente
             while flg0232:
@@ -378,26 +308,26 @@ while flg00:
                     opc = int(opc)
                     # Editar datos personales
                     if opc == 1:
-                        print("Editar datos personales")
                         flg0232 = False
                         flg02321 = True
-
                     # Editar préstamos
                     elif opc == 2:
-                        print("Editar préstamos")
                         flg0232 = False
                         flg02322 = True
 
                     # Añadir libro leído
                     elif opc == 3:
-                        libro_leido = input("Añada el isbn del libro leido: ")
+                        cabecera = "\n" + " Añadir libro leído ".center(40, "=")
+                        print(cabecera)
+                        libro_leido = input("Añada el isbn del libro leído: ")
                         if libro_leido in dic_libros:
                             if libro_leido not in dic_users[dni]["leidos"]:
                                 dic_users[dni]["leidos"].append(libro_leido)
-                                print("Libro añadido a la lista de leídos.")
-                        # print(dic_users)
+                                print("Libro '{}' añadido a la lista de leídos.".format(libro_leido))
+                        print("Press to continue...\n")
                     elif opc == 4:  # Volver atrás
                         flg0232 = False
+                        flg023 = True  # Regresar al menú de gestión de usuarios
 
                 # Submenú: Editar datos personales
                 while flg02321:
@@ -409,56 +339,62 @@ while flg00:
                         opc = int(opc)
                         # Editar teléfono
                         if opc == 1:
+                            cabecera = "\n" + " Editar teléfono ".center(40, "=")
+                            print(cabecera)
                             nuevo_tfn = input("Ingrese el nuevo número de teléfono (9 dígitos): ")
+                            # Validación de que el teléfono tiene 9 dígitos y es numérico
                             if len(nuevo_tfn) == 9 and nuevo_tfn.isdigit():
                                 dic_users[dni]["tfn"] = int(nuevo_tfn)
                                 print("El teléfono ha sido cambiado correctamente.")
-                                input("Press to continue..." + "\n")
-                                # print(dic_users)
                             else:
                                 print("El teléfono debe tener 9 dígitos numéricos.")
-                                input("Press to continue..." + "\n")
+                            input("Presione Enter para continuar...\n")
 
                         # Editar email
                         elif opc == 2:
+                            cabecera = "\n" + " Editar email ".center(40, "=")
+                            print(cabecera)
+
                             nuevo_mail = input("Ingrese el nuevo correo electrónico: ")
                             mail_correcto = True
-                            # Verificar formato del correo
+
+                            # Verificar si el correo contiene exactamente un '@'
                             ini = nuevo_mail.find("@")
                             if nuevo_mail.count("@") != 1 or ini == -1:
                                 print("Correo inválido: debe contener un solo '@'.")
-                                input("Press to continue..." + "\n")
                                 mail_correcto = False
-                            else:
+
+                            if mail_correcto:
                                 usuario = nuevo_mail[:ini]
                                 dominio = nuevo_mail[ini + 1:]
 
                                 # Validación de errores en la parte del usuario
                                 if ".." in usuario or usuario[0] == "." or usuario[-1] == ".":
                                     print("Correo inválido: error en la parte del usuario.")
-                                    input("Press to continue..." + "\n")
                                     mail_correcto = False
 
                                 # Validación de errores en la parte del dominio
-                                if ".." in dominio or dominio[0] == "." or dominio[-1] == ".":
+                                elif ".." in dominio or dominio[0] == "." or dominio[-1] == ".":
                                     print("Correo inválido: error en la parte del dominio.")
-                                    input("Press to continue..." + "\n")
                                     mail_correcto = False
                                 elif "." not in dominio:
                                     print("Correo inválido: dominio sin extensión.")
-                                    input("Press to continue..." + "\n")
                                     mail_correcto = False
 
                             if mail_correcto:
                                 dic_users[dni]["mail"] = nuevo_mail
                                 print("Correo actualizado a:", nuevo_mail)
-                                input("Press to continue..." + "\n")
+                            else:
+                                input("Presione Enter para continuar...\n")
+
                         # Volver atrás
                         elif opc == 3:
                             flg02321 = False
                             flg0232 = True
 
-                # Editar datos prestamos
+
+
+                # Editar datos préstamos
                 while flg02322:
                     print(menu02322)
                     opc = input("Opción: ")
@@ -468,26 +404,25 @@ while flg00:
                         print("Opción fuera de rango.")
                     else:
                         opc = int(opc)
-                        # añadir libro
+                        # Añadir libro
                         if opc == 1:
-                            libro_prestamos = input("Introduce el isbn del libro prestamos: ")
+                            cabecera = "\n" + " Añadir Libro ".center(40, "=")
+                            print(cabecera)
+                            libro_prestamos = input("Introduce el ISBN del libro préstamos: ")
                             if libro_prestamos in dic_libros:
                                 if libro_prestamos not in dic_users[dni]["prestamos"]:
                                     dic_users[dni]["prestamos"].append(libro_prestamos)
-                                    print("Libro añadido a la lista de prestamos.")
+                                    print("Libro añadido a la lista de préstamos.")
                                 else:
                                     print("El libro ya existe en la lista.")
-                                    input("Press to continue..." + "\n")
-
-                            # print(dic_users)
-                        # elimiinar libro
+                                input("Presione Enter para continuar...\n")
+                        # Eliminar libro
                         elif opc == 2:
-                            libro_a_eliminar = input("Introduce el isbn del libro a eliminar: ")
+                            libro_a_eliminar = input("Introduce el ISBN del libro a eliminar: ")
                             if libro_a_eliminar in dic_users[dni]["prestamos"]:
                                 dic_users[dni]["prestamos"].remove(libro_a_eliminar)
-                                print("Libro eliminado de la lista de prestamos.")
-                                input("Press to continue..." + "\n")
-                            # print(dic_users)
+                                print("Libro eliminado de la lista de préstamos.")
+                            input("Presione Enter para continuar...\n")
                         elif opc == 3:
                             flg02322 = False
                             flg0232 = True
@@ -504,7 +439,8 @@ while flg00:
             opc = int(opc)
             # Listar todos los géneros
             if opc == 1:
-                cabecera = "\n" + " Listado de Géneros ".center(35, "=") + "\n" + "ID".ljust(15) + "Género".ljust(20) + "\n" + "=" * 35
+                cabecera = "\n" + " Listado de Géneros ".center(35, "=") + "\n" + "ID".ljust(15) + "Género".ljust(
+                    20) + "\n" + "=" * 35
                 print(cabecera)
                 lista_generos = list(dic_generos.keys())
                 for pasada in range(len(lista_generos) - 1):
@@ -518,7 +454,7 @@ while flg00:
 
             # Añadir nuevo género
             elif opc == 2:
-                cabecera = "\n" + " Añadir Nuevo Género ".center(40, "*")
+                cabecera = "\n" + " Añadir Nuevo Género ".center(40, "=")
                 print(cabecera)
                 nuevo_genero = input("Introduce el nombre del nuevo género: ")
                 existe = False
@@ -532,29 +468,50 @@ while flg00:
                 else:
                     nuevo_id = len(dic_generos) + 1
                     dic_generos[nuevo_id] = nuevo_genero  # Añadir el nuevo género al diccionario
-                    print("Género '{}' añadido correctamente con el ID {}.".format(nuevo_genero , nuevo_id))
+                    print("Género '{}' añadido correctamente con el ID {}.".format(nuevo_genero, nuevo_id))
                     input("Press to continue..." + "\n")
 
             # Editar género
             elif opc == 3:
-                cabecera = "\n" + " Editar género ".center(40, "*")
+                cabecera = "\n" + " Editar género ".center(40, "=")
                 print(cabecera)
                 id_genero = input("Introduce el ID del género a editar: ")
-                if id_genero in dic_generos:
-                    nuevo_genero = input("Introduce el nuevo nombre del género: ")
-                    dic_generos[id_genero] = nuevo_genero
-                    print("Género '{}' editado correctamente.".format(nuevo_genero))
-                    input("Press to continue..." + "\n")
+
+                # Convertir id_genero a entero para que coincida con las claves del diccionario
+                if id_genero.isdigit():
+                    id_genero = int(id_genero)
+                    if id_genero in dic_generos:
+                        nuevo_genero = input("Introduce el nuevo nombre del género: ")
+                        dic_generos[id_genero] = nuevo_genero  # Editar el género en el diccionario
+                        print("Género con ID {} editado correctamente.".format(id_genero))
+                    else:
+                        print("El ID ingresado no existe.")
+                else:
+                    print("El ID debe ser un número entero.")
+                input("Press to continue..." + "\n")
 
             # Eliminar género
             elif opc == 4:
-                print("Eliminar género")
+                cabecera = "\n" + " Eliminar género ".center(40, "=")
+                print(cabecera)
                 id_genero = input("Introduce el ID del género a eliminar: ")
-                if id_genero in dic_generos:
-                    print("¿Está seguro de eliminar el género con ID {}? (s/n)".format(id_genero))
-                    del dic_generos[id_genero]
-                    print("Género con ID {} eliminado correctamente.".format(id_genero))
-                    input("Press to continue..." + "\n")
+
+                # Convertir id_genero a entero para que coincida con las claves del diccionario
+                if id_genero.isdigit():
+                    id_genero = int(id_genero)
+                    if id_genero in dic_generos:
+                        print("¿Está seguro de eliminar el género con ID {}? (s/n)".format(id_genero))
+                        confirmacion = input().lower()
+                        if confirmacion == 's':
+                            del dic_generos[id_genero]
+                            print("Género con ID {} eliminado correctamente.".format(id_genero))
+                        else:
+                            print("El género no fue eliminado.")
+                    else:
+                        print("El ID ingresado no existe.")
+                else:
+                    print("El ID debe ser un número entero.")
+                input("Press to continue..." + "\n")
 
             elif opc == 5:
                 flg03 = False
