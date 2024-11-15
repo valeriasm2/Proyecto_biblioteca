@@ -72,7 +72,7 @@ flg0232 = False  # Modificar usuario existente
 flg02321 = False  # Editar datos personales
 flg02322 = False  # Editar datos prestamos
 
-# Letras dni, para confirmar que el DNI del usuario es correcto
+# Letras dni, para confirmar que el DNI del usuario es correctos
 letras_dni = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
 #Separación para la cabecera
 sep = " "
