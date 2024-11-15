@@ -269,7 +269,6 @@ while flg00:
                     flg02 = True  # Regresar al menú de gestión de usuarios
 
         # Sección de editar usuarios
-        # Sección de editar usuarios
         while flg023:
             print(menu023)
             opc = input("Opción: ")
@@ -495,23 +494,25 @@ while flg00:
                 cabecera = "\n" + " Eliminar género ".center(40, "=")
                 print(cabecera)
                 id_genero = input("Introduce el ID del género a eliminar: ")
-
-                # Convertir id_genero a entero para que coincida con las claves del diccionario
+                # Verificar que id_genero es un número
                 if id_genero.isdigit():
                     id_genero = int(id_genero)
+                    # Verificar si el ID existe en el diccionario de géneros
                     if id_genero in dic_generos:
                         print("¿Está seguro de eliminar el género con ID {}? (s/n)".format(id_genero))
-                        confirmacion = input().lower()
-                        if confirmacion == 's':
+                        confirmacion = input()
+                        if confirmacion == 's':  # Confirmación para eliminar
                             del dic_generos[id_genero]
                             print("Género con ID {} eliminado correctamente.".format(id_genero))
-                        else:
+                        elif confirmacion == 'n':  # Cancelar eliminación
                             print("El género no fue eliminado.")
+                        else:
+                            print("Opción inválida. Se esperaba 's' o 'n'.")
                     else:
                         print("El ID ingresado no existe.")
                 else:
                     print("El ID debe ser un número entero.")
-                input("Press to continue..." + "\n")
+                input("Presione Enter para continuar...\n")
 
             elif opc == 5:
                 flg03 = False
