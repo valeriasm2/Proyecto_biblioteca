@@ -463,29 +463,28 @@ while flg00:
                     flg023 = False
                     flg0232 = True
                 elif opc == 3:
-
-                    print("Eliminar usuario")
-                    datos = ""
-
-                    print(135 * "=" + "\n" + "Mostrar usuarios".center(
+                    datos = "" #iniciamos la variable datos, para después ponerle toda la estructura de la tabla
+                    print(135 * "=" + "\n" + "Eliminar usuario".center(
                         135) + "\n" + 135 * "=" + "\n" + cabecera_tabla_usuarios)
-                    dnis = list(dic_users.keys())
-                    for dni in dnis:
+                    #se hace una tabla de mostración para que los usuarios puedan ver el dni que quieren eliminar.
+                    dnis = list(dic_users.keys()) #se agrupan todas las ids de los elementos del diccionario en una lista.
+                    for dni in dnis: # se pasa por toda la lista y saca los elementos enteros para mostrarlos bonitos
                         datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + str(
                             dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(43) + str(
                             len(dic_users[dni]["prestamos"])).rjust(20) + str(
                             len(dic_users[dni]["leidos"])).rjust(
                             20) + "\n"
                     print(datos) # se muestan los datos por pantalla.
-                    user_dni = input("Inserta el dni de la persona que quieres eliminar: ")
-                    while not user_dni in dnis:
+                    user_dni = input("Inserta el dni de la persona que quieres eliminar: ") # se pregunta que persona quieren eliminar
+                    while not user_dni in dnis: #si el dni que pone no existe, significa que no está dentro del diccionario, es decir que no se puede eliminar.
                         print("No existe el usuario que quieres borrar")
                         user_dni = input("Inserta el dni de la persona que quieres eliminar: ")
-                    del dic_users[user_dni]
+                    del dic_users[user_dni] # se elimina el usuario
 
-                    dnis = list(dic_users.keys())
-                    datos = ""
-                    print(135 * "=" + "\n" + "Mostrar usuarios".center(
+                    dnis = list(dic_users.keys()) # se vuelve hacer una lista, ya que si se elimina un elemento y lo listamos saldrá un error de que ya no existe y que no lo encuentra.
+                    datos = "" #se reinicia datos para que no salga la misma tabla que anteriormente
+                    #mostramos la tabla para enseñar los usuarios que quedan
+                    print(135 * "=" + "\n" + "Eliminar usuario".center(
                         135) + "\n" + 135 * "=" + "\n" + cabecera_tabla_usuarios)
                     for dni in dnis:
                         datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + str(
@@ -494,6 +493,9 @@ while flg00:
                             len(dic_users[dni]["leidos"])).rjust(
                             20) + "\n"
                     print(datos)  # se muestan los datos por pantalla.
+                    if datos == "": #si se han eliminado todos los usuarios
+                        print("No quedan usuarios en la tabla")
+
                 elif opc == 4:
                     flg023 = False
                     flg02 = True  # Regresar al menú de gestión de usuarios
