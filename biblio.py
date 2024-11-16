@@ -463,7 +463,37 @@ while flg00:
                     flg023 = False
                     flg0232 = True
                 elif opc == 3:
+
                     print("Eliminar usuario")
+                    datos = ""
+
+                    print(135 * "=" + "\n" + "Mostrar usuarios".center(
+                        135) + "\n" + 135 * "=" + "\n" + cabecera_tabla_usuarios)
+                    dnis = list(dic_users.keys())
+                    for dni in dnis:
+                        datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + str(
+                            dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(43) + str(
+                            len(dic_users[dni]["prestamos"])).rjust(20) + str(
+                            len(dic_users[dni]["leidos"])).rjust(
+                            20) + "\n"
+                    print(datos) # se muestan los datos por pantalla.
+                    user_dni = input("Inserta el dni de la persona que quieres eliminar: ")
+                    while not user_dni in dnis:
+                        print("No existe el usuario que quieres borrar")
+                        user_dni = input("Inserta el dni de la persona que quieres eliminar: ")
+                    del dic_users[user_dni]
+
+                    dnis = list(dic_users.keys())
+                    datos = ""
+                    print(135 * "=" + "\n" + "Mostrar usuarios".center(
+                        135) + "\n" + 135 * "=" + "\n" + cabecera_tabla_usuarios)
+                    for dni in dnis:
+                        datos += dni.ljust(12) + dic_users[dni]["nombre"].ljust(30) + str(
+                            dic_users[dni]["edad"]).rjust(10) + dic_users[dni]["mail"].rjust(43) + str(
+                            len(dic_users[dni]["prestamos"])).rjust(20) + str(
+                            len(dic_users[dni]["leidos"])).rjust(
+                            20) + "\n"
+                    print(datos)  # se muestan los datos por pantalla.
                 elif opc == 4:
                     flg023 = False
                     flg02 = True  # Regresar al menú de gestión de usuarios
