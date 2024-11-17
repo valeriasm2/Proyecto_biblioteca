@@ -1,3 +1,5 @@
+import random
+
 dic_libros = {
     'ISB4578': {'Título': 'Don Quijote de la Mancha', 'Autor': 'Miguel de Cervantes', 'Año': 1605, 'Cantidad': 4,
                 'Género': [1, 4, 7], 'Edad': 'Adultos'},
@@ -59,8 +61,8 @@ menu012 = " Buscar libro ".center(40, "=") + "\n" + "1) Por título" + "\n" + "2
           "\n" + "3) Por género" + "\n" + "4) Volver atrás"
 menu013 = " Editar libro ".center(40, "=") + "\n" + "1) Añadir nuevo libro" + "\n" + "2) Editar libro existente" + \
           "\n" + "3) Eliminar libro" + "\n" + "4) Volver atrás"
-menu0132 = " Editar libro existente ".center(40, "=") + "\n" + "1) Editar título" + "\n" + "2) Editar género" + \
-           "\n" + "3) Volver atrás"
+menu0132 = " Editar libro existente ".center(40, "=") + "\n" + "1) Editar título" + "\n" + "2) Editar Autor" + \
+           "\n" + "3) Editar Género" + "\n" + "4) Volver atrás"
 
 # MENÚS USUARIOS
 menu02 = " Gestión de usuarios ".center(40, "=") + "\n" + "1) Listar usuarios" + "\n" + "2) Buscar usuarios" + \
@@ -135,8 +137,25 @@ while flg00:
             print("Opción fuera de rango.")
         else:
             opc = int(opc)
+            datos =""
             if opc == 1:
-                print("Listar todos los libros")
+                cabecera = ("\n" + "Listar todos los libros".center(153,"*") + "\n" + "Clave".ljust(10) + "Título".ljust(40) + "Autor".ljust(30) + "Año".ljust(8) +
+                            "Cantidad".rjust(5) + " "*5 + "Género".ljust(30) + "Edad".ljust(15) + "\n" + "*"*153 + "\n")
+                for clave, valor in dic_libros.items():
+                    generos_str = ""
+
+                    #Agregar cada género con una coma entre ellos
+                    for i in range(len(valor["Género"])):
+                        genero_id = valor["Género"][i]
+                        if genero_id in dic_generos:
+                            generos_str += dic_generos[genero_id]
+                            if i < len(valor["Género"]) - 1:  #Si no es el último género
+                                generos_str += ", "
+
+                    datos += (clave.ljust(10) + valor["Título"].ljust(40) + valor["Autor"].ljust(30) + str(valor["Año"]).ljust(8) +
+                              str(valor["Cantidad"]).rjust(8) + " "*5 + generos_str.ljust(30) + valor["Edad"]).ljust(15) + "\n"
+                print(cabecera+datos)
+                input("\nPresiona una tecla para continuar.")
             elif opc == 2:
                 print("Buscar libro")
                 flg01 = False
@@ -160,11 +179,95 @@ while flg00:
             else:
                 opc = int(opc)
                 if opc == 1:
-                    print("Buscar por título")
+                    cabecera = ("\n" + "Buscar por título".center(153, "*") + "\n" + "Clave".ljust(
+                        10) + "Título".ljust(40) + "Autor".ljust(30) + "Año".ljust(8) +
+                                "Cantidad".rjust(5) + " " * 5 + "Género".ljust(30) + "Edad".ljust(
+                                15) + "\n" + "*" * 153 + "\n")
+                    datos = ""
+                    titulo = input("\nTítulo para buscar: ").lower()
+
+                    for clave,valor in dic_libros.items():
+                        if titulo in valor["Título"].lower():
+                            generos_str = ""
+                            # Agregar cada género con una coma entre ellos
+                            for i in range(len(valor["Género"])):
+                                genero_id = valor["Género"][i]
+                                if genero_id in dic_generos:
+                                    generos_str += dic_generos[genero_id]
+                                    if i < len(valor["Género"]) - 1:  # Si no es el último género
+                                        generos_str += ", "
+
+                            datos += (clave.ljust(10) + valor["Título"].ljust(40) + valor["Autor"].ljust(30) + str(valor["Año"]).ljust(8) +
+                                      str(valor["Cantidad"]).rjust(8) + " " * 5 + generos_str.ljust(30) + valor["Edad"]).ljust(15) + "\n"
+
+                    # Verificar si se encontraron libros
+                    if datos:
+                        print(cabecera+datos)
+                    else:
+                        print("\nNo hay ningún título que contenga {}".format(titulo))
+                    input("\nPresiona una tecla para continuar.")
+
                 elif opc == 2:
-                    print("Buscar por autor")
+                    cabecera = ("\n" + "Buscar por autor".center(153, "*") + "\n" + "Clave".ljust(
+                        10) + "Título".ljust(40) + "Autor".ljust(30) + "Año".ljust(8) +
+                                "Cantidad".rjust(5) + " " * 5 + "Género".ljust(30) + "Edad".ljust(
+                                15) + "\n" + "*" * 153 + "\n")
+                    datos = ""
+                    autor = input("\nAutor para buscar: ").lower()
+
+                    for clave, valor in dic_libros.items():
+                        if autor in valor["Autor"].lower():
+                            generos_str = ""
+                            # Agregar cada género con una coma entre ellos
+                            for i in range(len(valor["Género"])):
+                                genero_id = valor["Género"][i]
+                                if genero_id in dic_generos:
+                                    generos_str += dic_generos[genero_id]
+                                    if i < len(valor["Género"]) - 1:  # Si no es el último género
+                                        generos_str += ", "
+
+                            datos += (clave.ljust(10) + valor["Título"].ljust(40) + valor["Autor"].ljust(30) + str(
+                                valor["Año"]).ljust(8) +
+                                      str(valor["Cantidad"]).rjust(8) + " " * 5 + generos_str.ljust(30) + valor[
+                                          "Edad"]).ljust(15) + "\n"
+
+                    # Verificar si se encontraron libros
+                    if datos:
+                        print(cabecera + datos)
+                    else:
+                        print("\nNo hay ningún autor que contenga {}".format(autor))
+                    input("\nPresiona una tecla para continuar.")
+
                 elif opc == 3:
-                    print("Buscar por género")
+                    cabecera = ("\n" + "Buscar por género".center(153, "*") + "\n" + "Clave".ljust(
+                        10) + "Título".ljust(40) + "Autor".ljust(30) + "Año".ljust(8) +
+                                "Cantidad".rjust(5) + " " * 5 + "Género".ljust(30) + "Edad".ljust(
+                                15) + "\n" + "*" * 153 + "\n")
+                    datos = ""
+                    genero = input("\nGénero para buscar: ").lower()
+
+                    for clave, valor in dic_libros.items():
+                        generos_str = ""
+                        # Agregar cada género con una coma entre ellos
+                        for i in range(len(valor["Género"])):
+                            genero_id = valor["Género"][i]
+                            if genero_id in dic_generos:
+                                generos_str += dic_generos[genero_id]
+                                if i < len(valor["Género"]) - 1:  # Si no es el último género
+                                    generos_str += ", "
+                        if genero in generos_str.lower():
+                            datos += (clave.ljust(10) + valor["Título"].ljust(40) + valor["Autor"].ljust(30) + str(
+                                valor["Año"]).ljust(8) +
+                                      str(valor["Cantidad"]).rjust(8) + " " * 5 + generos_str.ljust(30) + valor[
+                                          "Edad"]).ljust(15) + "\n"
+
+                    # Verificar si se encontraron libros
+                    if datos:
+                        print(cabecera + datos)
+                    else:
+                        print("\nNo hay ningún género que contenga {}".format(genero))
+                    input("\nPresiona una tecla para continuar.")
+
                 elif opc == 4:
                     flg012 = False
                     flg01 = True  # Regresar al menú de gestión de libros
@@ -181,33 +284,168 @@ while flg00:
                 opc = int(opc)
                 if opc == 1:
                     print("Añadir nuevo libro")
+
+                    #generamos un id de libro aleatorio
+                    id_libro = ""
+                    while True:
+                        id_numero = random.randint(1000, 9999)
+                        id_libro = "ISB{}".format(id_numero)
+                        if id_libro not in dic_libros:
+                            break
+
+                    print("ID generado automáticamente: {}".format(id_libro))
+
+                    #título del libro
+                    print("Ingrese el título del libro:")
+                    titulo = input()
+                    while len(titulo) == 0:
+                        print("El título no puede estar vacío.")
+                        titulo = input()
+
+                    #autor del libro
+                    print("Ingrese el autor del libro:")
+                    autor = input()
+                    while len(autor) == 0:
+                        print("El autor no puede estar vacío.")
+                        autor = input()
+
+                    #género del libro
+                    print("Seleccione un género:")
+                    for clave, valor in dic_generos.items():
+                        print("{}. {}".format(clave,valor))
+                    genero = None
+                    while genero not in dic_generos:
+                        genero_input = input()
+                        if genero_input.isdigit():
+                            genero = int(genero_input)
+                            if genero not in dic_generos:
+                                print("Opción de género inválida.")
+                        else:
+                            print("Debe ingresar un número válido.")
+
+                    #año de publicación
+                    print("Ingrese el año de publicación:")
+                    year = input()
+                    while not year.isdigit() or len(year) != 4 or int(year) < 1000 or int(year) > 9999:
+                        print("El año debe ser un número de 4 dígitos válido.")
+                        year = input()
+
+                    #edad del libro
+                    edades_disponibles = list(set([datos['Edad'] for datos in dic_libros.values()]))
+                    print("Seleccione la edad recomendada para el libro:")
+                    for i, edad in enumerate(edades_disponibles, 1):
+                        print("{}. {}".format(i,edad))
+                    edad_seleccionada = None
+                    while edad_seleccionada not in edades_disponibles:
+                        edad_input = input()
+                        if edad_input.isdigit():
+                            opcion_edad = int(edad_input)
+                            if 1 <= opcion_edad <= len(edades_disponibles):
+                                edad_seleccionada = edades_disponibles[opcion_edad - 1]
+                            else:
+                                print("Opción de edad inválida.")
+                        else:
+                            print("Debe ingresar un número válido.")
+
+                    #cantidad de libros
+                    print("Ingrese la cantidad de libros disponibles:")
+                    cantidad = input()
+                    while not cantidad.isdigit() or int(cantidad) <= 0:
+                        print("La cantidad debe ser un número entero mayor a 0.")
+                        cantidad = input()
+
+                    #añadimos el nuevo libro al diccionario libros
+                    dic_libros[id_libro] = {"Título": titulo, "Autor": autor, "Género": [genero], "Año": int(year), "Cantidad": int(cantidad), "Edad": edad_seleccionada}
+
+                    print("Libro añadido exitosamente con ID {}:".format(id_libro))
+                    print(dic_libros[id_libro])
+
+                    print("Libro añadido correctamente. Regresando al menú principal.")
+
+
                 elif opc == 2:
                     print("Editar libro existente")
                     flg013 = False
                     flg0132 = True
                 elif opc == 3:
-                    print("Eliminar libro")
+                    id_libro = input("Ingrese el ID del libro a eliminar:")
+                    if id_libro in dic_libros:
+                        #si el libro existe, se elimina
+                        del dic_libros[id_libro]
+                        print("El libro con ID {} ha sido eliminado exitosamente.".format(id_libro))
+                    else:
+                        #si el libro no existe:
+                        print("No se encontró un libro con el ID {}.".format(id_libro))
                 elif opc == 4:
                     flg013 = False
                     flg01 = True  # Regresar al menú de gestión de libros
 
-            # Sección de editar libro existente
+            #editar libro existente
             while flg0132:
                 print(menu0132)
                 opc = input("Opción: ")
                 if not opc.isdigit():
                     print("La opción debe ser numérica.")
-                elif int(opc) < 1 or int(opc) > 3:
+                elif int(opc) < 1 or int(opc) > 4:
                     print("Opción fuera de rango.")
                 else:
                     opc = int(opc)
+                    #editar título
                     if opc == 1:
-                        print("Editar título")
+                        print("Ingrese el ID del libro a editar:")
+                        id_libro = input().upper()
+                        if id_libro not in dic_libros:
+                            print("El ID no existe.")
+                        else:
+                            print("Ingrese el nuevo título:")
+                            nuevo_titulo = input()
+                            while len(nuevo_titulo) == 0:
+                                print("El título no puede estar vacío.")
+                                nuevo_titulo = input()
+                            dic_libros[id_libro]["Título"] = nuevo_titulo
+                            print("Título actualizado exitosamente.")
+
+                    #editar autor
                     elif opc == 2:
-                        print("Editar género")
+                        print("Ingrese el ID del libro a editar:")
+                        id_libro = input().upper()
+                        if id_libro not in dic_libros:
+                            print("El ID no existe.")
+                        else:
+                            print("Ingrese el nuevo autor:")
+                            nuevo_autor = input()
+                            while len(nuevo_autor) == 0:
+                                print("El autor no puede estar vacío.")
+                                nuevo_autor = input()
+                            dic_libros[id_libro]["Autor"] = nuevo_autor
+                            print("Autor actualizado exitosamente.")
+
+                    #editar género
                     elif opc == 3:
+                        print("Ingrese el ID del libro a editar:")
+                        id_libro = input().upper()
+                        if id_libro not in dic_libros:
+                            print("El ID no existe.")
+                        else:
+                            print("Seleccione un género para el libro:")
+                            for clave, valor in dic_generos.items():
+                                print("{}. {}".format(clave, valor))
+                            genero = None
+                            while genero not in dic_generos:
+                                genero_input = input()
+                                if genero_input.isdigit():
+                                    genero = int(genero_input)
+                                    if genero not in dic_generos:
+                                        print("Opción de género inválida.")
+                                else:
+                                    print("Debe ingresar un número válido.")
+                            dic_libros[id_libro]["Género"] = [genero]
+                            print("Género actualizado exitosamente.")
+
+                    # Regresar al menú de editar libro
+                    elif opc == 4:
                         flg0132 = False
-                        flg013 = True  # Regresar al menú de editar libro
+                        flg013 = True  # Regresar al menú principal de gestión de libros
 
     # GESTIÓN USUARIOS
     while flg02:
